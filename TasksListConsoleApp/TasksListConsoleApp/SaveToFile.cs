@@ -30,10 +30,8 @@ namespace TasksListConsoleApp
 
         public async static void RecordToFile(Objective task)
         {
-            var text = task.Importance + " | " + task.TaskContent + " | " + task.Limit + " \n";
-            Console.WriteLine(text);
-            await File.AppendAllTextAsync(FilePath, text);
-                   
+            var text = task.Importance + " - " + task.TaskContent + " - " + task.Limit + " \n";
+            await File.AppendAllTextAsync(FilePath, text);                   
         }
 
         public async static void Reader()
@@ -44,7 +42,6 @@ namespace TasksListConsoleApp
                 Console.WriteLine(await reader.ReadToEndAsync());
                 reader.Close();
             }
-
         }
 
         public static void ClearFile()

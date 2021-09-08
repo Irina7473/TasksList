@@ -14,19 +14,6 @@ namespace TasksListConsoleApp
                 select = Console.ReadLine();
                 Menu.EventMenu(select);
             } while (!select.Contains("-b"));
-            
-
-            /*
-            var task = new Objective();
-            Console.WriteLine("Введите задачу");
-            task.TaskContent=Console.ReadLine();
-            Console.WriteLine("Введите срок выполнения задачи");
-            task.Limit = Console.ReadLine();
-            Console.WriteLine("Введите важность задачи по шкале от 0 до 4 (4- очень важная)");
-            task.Importance =int.Parse(Console.ReadLine());
-            */
-            
-
         }
     }
 }
