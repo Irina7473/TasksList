@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace TasksListConsoleApp
 {
     public static class Menu
     {
+        static int numberLevel = 3;
+        static Dictionary<int, ImportanceTable> level;// = new Dictionary<int, ImportanceTable>(numberLevel);
+
         public static void Welcome()
         {
             Console.WriteLine("******** Список задач! ********");
@@ -30,13 +34,13 @@ namespace TasksListConsoleApp
             if (select.Contains("-z"))
             {
                 Console.WriteLine("Создание нового списка задач");
-                SaveToFile.ClearFile();
+                CreatTaskList();
                 Selection();
             }
 
             if (select.Contains("-x"))
             {
-                Console.WriteLine("Добавление новой задачи в список");
+                Console.WriteLine("Добавление новых задач в список");
                 CreatObjective();
                 Selection();
             }
@@ -44,13 +48,13 @@ namespace TasksListConsoleApp
             if (select.Contains("-c"))
             {
                 Console.WriteLine("Вывод списка задач на экран");
-                SaveToFile.Reader();
+                SaveToFile.ConsolReader();
                 Selection();
             }
 
             if (select.Contains("-v"))
             {
-                Console.WriteLine("Создание таблицы важности");
+                Console.WriteLine("Создание своей таблицы важности");
                 Selection();
             }
 
@@ -60,9 +64,51 @@ namespace TasksListConsoleApp
             }
         }
 
+        public static void CreatTaskList()
+        {
+            level = new Dictionary<int, ImportanceTable>(numberLevel);
+            level.Add (3, new ImportanceTable(new Queue<Objective>(), 3, ConsoleColor.Yellow));
+            level.Add (2, new ImportanceTable(new Queue<Objective>(), 2, ConsoleColor.Blue));
+            level.Add (1, new ImportanceTable(new Queue<Objective>(), 1, ConsoleColor.Magenta));
+            var path=SaveToFile.FilePath;
+            if (File.Exists(path))
+            {
+                StreamReader reader = new(path);
+                while (!reader.EndOfStream)
+                {
+                    var task = new Objective();
+                    string text = reader.ReadLine();
+                    //string[] elements = text.Split('-');
+                    var elements = text.Split('-');                    
+                    for(var i=0; i<elements.Length; i++)
+                    {
+                        Console.WriteLine(elements[i]);
+
+                        int res;
+                        if (i == 0)
+                        {
+                            Int32.TryParse(elements[i], out res);
+                            task.Importance = res+1;
+                         }
+                        if (i == 1) task.TaskContent = elements[i]; 
+                        if (i == 2) task.Limit = elements[i];
+                    }
+                    /*
+                    var elements = text.Split('-');
+                    task.TaskContent = elements[1];
+                    task.Limit = elements[2];
+                    task.Importance = int.Parse(elements[0])+1;*/
+                    level[task.Importance].AnyLevel.Enqueue(task);
+                }
+                reader.Close();
+            } 
+        }
+
         public static void CreatObjective()
         {
-            SaveToFile.RecordToFile(AddObjective());
+            if (level.Count == 0) CreatTaskList();
+            var task = AddObjective();
+            level[task.Importance].AnyLevel.Enqueue(task);
             Console.WriteLine("  Добавить еще 1 задачу?\n  1 - да  \n  2 - нет");
             var select = Console.ReadLine();
             if (select.Contains("1"))
@@ -72,6 +118,7 @@ namespace TasksListConsoleApp
 
             if (select.Contains("2"))
             {
+                SaveToFile.RecordToFile(level);
                 return;
             }
         }
@@ -83,8 +130,9 @@ namespace TasksListConsoleApp
             task.TaskContent = Console.ReadLine();
             Console.WriteLine("Введите срок выполнения задачи");
             task.Limit = Console.ReadLine();
-            Console.WriteLine("Введите важность задачи по шкале от 0 до 4 (4- очень важная)");
+            Console.WriteLine("Введите важность задачи по шкале от 1 до 3 (3- очень важная)");
             task.Importance = int.Parse(Console.ReadLine());
+
             return task;
         }
     }

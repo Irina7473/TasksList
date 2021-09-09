@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TasksListConsoleApp
 {
@@ -6,6 +7,8 @@ namespace TasksListConsoleApp
     {
         static void Main(string[] args)
         {
+            int numberLevel = 3;
+            Dictionary<int, ImportanceTable> level = new Dictionary<int, ImportanceTable>(numberLevel);
             Menu.Welcome();
             Menu.Selection();
             string select="";
