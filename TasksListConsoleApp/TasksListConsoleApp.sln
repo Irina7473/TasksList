@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksListConsoleApp", "TasksListConsoleApp\TasksListConsoleApp.csproj", "{A69EF29F-88E8-4973-9EB6-2BEE80F4BB2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksListConsoleApp", "TasksListConsoleApp\TasksListConsoleApp.csproj", "{A69EF29F-88E8-4973-9EB6-2BEE80F4BB2B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject1", "TestProject1\TestProject1.csproj", "{5B658325-B250-4C53-9C02-1D0D9B8C06F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksListWpfApp", "TasksListWpfApp\TasksListWpfApp.csproj", "{2100DD6F-665F-429D-98AC-B2A899C1B4C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{A69EF29F-88E8-4973-9EB6-2BEE80F4BB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A69EF29F-88E8-4973-9EB6-2BEE80F4BB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A69EF29F-88E8-4973-9EB6-2BEE80F4BB2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B658325-B250-4C53-9C02-1D0D9B8C06F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B658325-B250-4C53-9C02-1D0D9B8C06F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B658325-B250-4C53-9C02-1D0D9B8C06F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B658325-B250-4C53-9C02-1D0D9B8C06F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2100DD6F-665F-429D-98AC-B2A899C1B4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2100DD6F-665F-429D-98AC-B2A899C1B4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2100DD6F-665F-429D-98AC-B2A899C1B4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2100DD6F-665F-429D-98AC-B2A899C1B4C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

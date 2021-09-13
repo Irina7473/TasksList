@@ -1,0 +1,42 @@
+﻿<Window x:Class="TasksListWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TasksListWpfApp"
+        mc:Ignorable="d"
+        Title="******** Список задач! ********" Height="450" Width="800" ResizeMode="NoResize">
+            
+        <TabControl>
+            <TabItem Header="Формирование списка задач">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Левая кнопка" />
+                    <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                <DockPanel Grid.Column="2">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <Button x:Name="Importance1" Content="Не очень важно"
+                                Height="40" Width="100" />
+                        <Button x:Name="Importance2" Content="Важно" Height="40" Width="100"/>
+                        <Button x:Name="Importance3" Content="Очень важно"
+                                Height="40" Width="100"/>
+                    </StackPanel>
+                    <TextBox Name="Limit" DockPanel.Dock="Bottom"
+                             Height="40" FontSize="15" />
+                    <TextBox Name="TaskContent" FontSize="15" />
+                    
+                </DockPanel>                
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Готовый список задач">
+            <TextBlock x:Name="ImportanceTable">
+                </TextBlock>
+            </TabItem>
+        </TabControl>
+</Window>
