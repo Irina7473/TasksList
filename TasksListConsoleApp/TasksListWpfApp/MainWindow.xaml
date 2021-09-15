@@ -5,38 +5,96 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TasksListWpfApp"
         mc:Ignorable="d"
-        Title="******** Список задач! ********" Height="450" Width="800" ResizeMode="NoResize">
-            
-        <TabControl>
-            <TabItem Header="Формирование списка задач">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Левая кнопка" />
-                    <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
-        HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-                <DockPanel Grid.Column="2">
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                        <Button x:Name="Importance1" Content="Не очень важно"
-                                Height="40" Width="100" />
-                        <Button x:Name="Importance2" Content="Важно" Height="40" Width="100"/>
-                        <Button x:Name="Importance3" Content="Очень важно"
-                                Height="40" Width="100"/>
+        Title="******** Список задач! ********" Height="450" Width="900" Background="CornflowerBlue">
+    <Window.Resources>
+        <ResourceDictionary Source="Style.xaml"/>
+    </Window.Resources>
+
+    <TabControl>
+        <TabItem Header="Формирование списка задач" FontSize="15" Background="LightBlue">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Label Content="Выберите действие"/>
+                        <ComboBox x:Name="SelectAction" SelectionChanged="SelectAction_SelectionChanged" 
+                          FontSize="15" Height="60" Width="300" Margin="10" >
+                            <TextBlock x:Name="SelectZ" Text="Создание нового списка задач" TextWrapping="Wrap" Width="250"/>
+                            <TextBlock x:Name="SelectX" Text="Добавление новых задач в список" TextWrapping="Wrap" Width="250"/>
+                            <TextBlock x:Name="SelectC" Text="Запись списка задач в текстовый файл" TextWrapping="Wrap" Width="250"/>
+                            <TextBlock x:Name="SelectV" Text="Создание своей таблицы важности" TextWrapping="Wrap" Width="250"/>
+                            <TextBlock x:Name="SelectB" Text="Выйти из программы" TextWrapping="Wrap" Width="250"/>
+                        </ComboBox>
+                    </Grid>
+                    <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" Background="CornflowerBlue"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    <StackPanel  Grid.Row="2" Margin="0,10,0,0">
+                        <Label Content="Таблица важности" Margin="0" />
+                        <Label Content="Выберите цвет для каждого уровня важности" Margin="10" />
+                        <Grid Height="40">
+                            <CheckBox x:Name="TableImportance1" IsChecked="False" Content="Не очень важно" Checked="Importance1_Checked"  Unchecked="Importance1_Unchecked"/>
+                            <ComboBox x:Name="SelectColor1" SelectionChanged="SelectColor1_SelectionChanged" Height="20" Width="100"  >
+                                
+                            </ComboBox>
+                        </Grid>
+                        <Grid Height="40">
+                            <CheckBox x:Name="TableImportance2" IsChecked="False" Content="Важно" Checked="Importance1_Checked"  Unchecked="Importance2_Unchecked"/>
+                            <ComboBox x:Name="SelectColor2" SelectionChanged="SelectColor2_SelectionChanged"  Height="20" Width="100" >
+                            </ComboBox>
+                        </Grid>
+                        <Grid Height="40">
+                            <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Checked="Importance1_Checked"  Unchecked="Importance3_Unchecked"/>
+                            <ComboBox x:Name="SelectColor3" SelectionChanged="SelectColor3_SelectionChanged" Height="20" Width="100" >
+                            </ComboBox>
+                        </Grid>
+
+
                     </StackPanel>
-                    <TextBox Name="Limit" DockPanel.Dock="Bottom"
-                             Height="40" FontSize="15" />
-                    <TextBox Name="TaskContent" FontSize="15" />
-                    
-                </DockPanel>                
                 </Grid>
-            </TabItem>
-            
-            <TabItem Header="Готовый список задач">
-            <TextBlock x:Name="ImportanceTable">
-                </TextBlock>
-            </TabItem>
-        </TabControl>
+                <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" Background="CornflowerBlue"
+                              HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                <DockPanel Grid.Column="2">
+                    <Label Content="Выберите степень важности задачи" DockPanel.Dock="Top"/>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="Importance1" Content="Не очень важно"                                 
+                                Style="{DynamicResource style_Button}"/>
+                        <Button x:Name="Importance2" Content="Важно" 
+                                Style="{DynamicResource style_Button}"/>
+                        <Button x:Name="Importance3" Content="Очень важно"
+                                Style="{DynamicResource style_Button}"/>
+                    </StackPanel>
+                    <Label Content="Заполните текст задачи" DockPanel.Dock="Top"/>
+                    <Button x:Name="SaveTask" Content="Записать задачу" DockPanel.Dock="Bottom" Background="LightSteelBlue"  Style="{DynamicResource style_Button}"/>
+                    <TextBox Name="Limit" DockPanel.Dock="Bottom"
+                             Height="50" FontSize="15" TextWrapping="Wrap" />
+                    <Label Content="Заполните срок выполнения задачи" DockPanel.Dock="Bottom"/>
+                    
+                    <TextBox Name="TaskContent" FontSize="15" TextWrapping="Wrap" />
+
+                </DockPanel>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Готовый список задач" Height="30" Width="200" FontSize="15" Background="LightBlue">
+            <ListView Name="ObjectiveList" >
+                <ListView.View>
+                    <GridView >
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=TaskContent}" Width="650">Задача</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Limit}" Width="250">Срок выполнения</GridViewColumn>                        
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+
+        </TabItem>
+    </TabControl>
 </Window>
