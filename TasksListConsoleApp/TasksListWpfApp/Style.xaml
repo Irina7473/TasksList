@@ -12,11 +12,11 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
         </Style.Triggers>
-
+        <Setter Property="Background" Value="LightSteelBlue" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="Width" Value="120" />
         <Setter Property="Height" Value="30" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="20" />
     </Style>
 </ResourceDictionary>

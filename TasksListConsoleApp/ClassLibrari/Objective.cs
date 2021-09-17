@@ -12,12 +12,12 @@ namespace ClassLibrari
         public string TaskContent { get; set; }
         public string Limit { get; set; }
 
-        /*
+        public Objective() { }
         public Objective(int importance, string taskContent, string limit)
         {
             Importance = importance;
             TaskContent = taskContent;
             Limit = limit;
-        }    */    
+        }      
     }        
 }

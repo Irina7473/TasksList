@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TasksListWpfApp"
         mc:Ignorable="d"
-        Title="******** Список задач! ********" Height="450" Width="900" Background="CornflowerBlue">
+        Title="******** Список задач! ********" Height="450" Width="1000" Background="CornflowerBlue">
     <Window.Resources>
         <ResourceDictionary Source="Style.xaml"/>
     </Window.Resources>
@@ -64,21 +64,21 @@
                               HorizontalAlignment="Center" VerticalAlignment="Stretch" />
                 <DockPanel Grid.Column="2">
                     <Label Content="Выберите степень важности задачи" DockPanel.Dock="Top"/>
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button x:Name="Importance1" Content="Не очень важно"                                 
-                                Style="{DynamicResource style_Button}"/>
-                        <Button x:Name="Importance2" Content="Важно" 
-                                Style="{DynamicResource style_Button}"/>
-                        <Button x:Name="Importance3" Content="Очень важно"
-                                Style="{DynamicResource style_Button}"/>
-                    </StackPanel>
-                    <Label Content="Заполните текст задачи" DockPanel.Dock="Top"/>
-                    <Button x:Name="SaveTask" Content="Записать задачу" DockPanel.Dock="Bottom" Background="LightSteelBlue"  Style="{DynamicResource style_Button}"/>
-                    <TextBox Name="Limit" DockPanel.Dock="Bottom"
+                    <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
+                        <RadioButton x:Name="RadioButton_Importance1" GroupName="Importance" Content="Не очень важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
+                        <RadioButton x:Name="RadioButton_Importance2" GroupName="Importance" Content="Важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
+                        <RadioButton x:Name="RadioButton_Importance3" GroupName="Importance" Content="Очень важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
+                    </WrapPanel>
+                    <Label Content="Заполните текст задачи" DockPanel.Dock="Top" />
+                    <WrapPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                        <Button x:Name="SaveTask" Content="Записать задачу" Click="SaveTask_Click" Style="{DynamicResource style_Button}"/>
+                        <Button x:Name="СlearForm" Content="Очистить форму" Click="СlearForm_Click"  Style="{DynamicResource style_Button}"/>
+                    </WrapPanel>                    
+                    <TextBox Name="TextBox_Limit" DockPanel.Dock="Bottom" TextChanged="Limit_TextChanged"
                              Height="50" FontSize="15" TextWrapping="Wrap" />
                     <Label Content="Заполните срок выполнения задачи" DockPanel.Dock="Bottom"/>
-                    
-                    <TextBox Name="TaskContent" FontSize="15" TextWrapping="Wrap" />
+
+                    <TextBox Name="TextBox_TaskContent" FontSize="15" TextWrapping="Wrap" TextChanged="TaskContent_TextChanged"/>
 
                 </DockPanel>
             </Grid>

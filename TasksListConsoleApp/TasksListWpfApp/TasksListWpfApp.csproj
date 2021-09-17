@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TasksListConsoleApp\TasksListConsoleApp.csproj" />
+    <ProjectReference Include="..\ClassLibrari\ClassLibrari.csproj" />
   </ItemGroup>
 
 </Project>
