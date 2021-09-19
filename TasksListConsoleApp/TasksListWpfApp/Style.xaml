@@ -15,8 +15,41 @@
         <Setter Property="Background" Value="LightSteelBlue" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Foreground" Value="Black" />
-        <Setter Property="Width" Value="120" />
+        <Setter Property="Width" Value="150" />
         <Setter Property="Height" Value="30" />
         <Setter Property="Margin" Value="20" />
     </Style>
+
+    <Style x:Key="style_Button_Color" TargetType="Button">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=input_Name, Path=Text}" Value="" />
+                    <Condition Binding="{Binding ElementName=input_Age, Path=Text}" Value="" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="IsEnabled" Value="False" />
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>        
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="20" />        
+    </Style>
+
+    <Style x:Key="style_CheckBox" TargetType="CheckBox">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=input_Name, Path=Text}" Value="" />
+                    <Condition Binding="{Binding ElementName=input_Age, Path=Text}" Value="" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="IsEnabled" Value="False" />
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>        
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Margin" Value="20" />
+    </Style>
+
 </ResourceDictionary>

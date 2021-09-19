@@ -25,9 +25,9 @@
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Margin="0,0,0,10">
-                        <Label Content="Выберите действие"/>
+                        <Label Content="Выберите действие" Margin="10" HorizontalAlignment="Center"/>
                         <ComboBox x:Name="SelectAction" SelectionChanged="SelectAction_SelectionChanged" 
-                          FontSize="15" Height="60" Width="300" Margin="10" >
+                          FontSize="15" Height="50" Width="300" VerticalAlignment="Bottom" >
                             <TextBlock x:Name="SelectZ" Text="Создание нового списка задач" TextWrapping="Wrap" Width="250"/>
                             <TextBlock x:Name="SelectX" Text="Добавление новых задач в список" TextWrapping="Wrap" Width="250"/>
                             <TextBlock x:Name="SelectC" Text="Запись списка задач в текстовый файл" TextWrapping="Wrap" Width="250"/>
@@ -38,26 +38,24 @@
                     <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" Background="CornflowerBlue"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                     <StackPanel  Grid.Row="2" Margin="0,10,0,0">
-                        <Label Content="Таблица важности" Margin="0" />
-                        <Label Content="Выберите цвет для каждого уровня важности" Margin="10" />
-                        <Grid Height="40">
-                            <CheckBox x:Name="TableImportance1" IsChecked="False" Content="Не очень важно" Checked="Importance1_Checked"  Unchecked="Importance1_Unchecked"/>
-                            <ComboBox x:Name="SelectColor1" SelectionChanged="SelectColor1_SelectionChanged" Height="20" Width="100"  >
-                                
+                        <Label Content="Таблица важности" Height="40" />
+                        <Label Content="Выберите цвет для каждого уровня важности"  />
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                            <CheckBox x:Name="TableImportance1" IsChecked="False" Content="Не очень важно" Style="{DynamicResource style_CheckBox}"/>
+                            <CheckBox x:Name="TableImportance2" IsChecked="False" Content="Важно" Style="{DynamicResource style_CheckBox}"/>
+                            <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Style="{DynamicResource style_CheckBox}" />
+                            <ComboBox x:Name="SelectColor" SelectionChanged="SelectColor_SelectionChanged" Height="30" Width="200" >
+                                <Button x:Name="LightSkyBlue" Background="LightSkyBlue"  Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="LightBlue" Background="LightBlue"  Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="SpringGreen" Background="SpringGreen" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="LightGreen" Background="LightGreen" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="Orange" Background="Orange" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="Yellow" Background="Yellow" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="PaleVioletRed" Background="PaleVioletRed" Click="Color_Click"  Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="Coral" Background="Coral" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
                             </ComboBox>
-                        </Grid>
-                        <Grid Height="40">
-                            <CheckBox x:Name="TableImportance2" IsChecked="False" Content="Важно" Checked="Importance1_Checked"  Unchecked="Importance2_Unchecked"/>
-                            <ComboBox x:Name="SelectColor2" SelectionChanged="SelectColor2_SelectionChanged"  Height="20" Width="100" >
-                            </ComboBox>
-                        </Grid>
-                        <Grid Height="40">
-                            <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Checked="Importance1_Checked"  Unchecked="Importance3_Unchecked"/>
-                            <ComboBox x:Name="SelectColor3" SelectionChanged="SelectColor3_SelectionChanged" Height="20" Width="100" >
-                            </ComboBox>
-                        </Grid>
-
-
+                            <Button x:Name="SaveColor" Content="Сохранить выбор" Click="SaveColor_Click" Style="{DynamicResource style_Button}"/>
+                        </WrapPanel>
                     </StackPanel>
                 </Grid>
                 <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" Background="CornflowerBlue"
@@ -65,7 +63,7 @@
                 <DockPanel Grid.Column="2">
                     <Label Content="Выберите степень важности задачи" DockPanel.Dock="Top"/>
                     <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-                        <RadioButton x:Name="RadioButton_Importance1" GroupName="Importance" Content="Не очень важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
+                        <RadioButton x:Name="RadioButton_Importance1" GroupName="Importance" Content="Не очень важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10" />
                         <RadioButton x:Name="RadioButton_Importance2" GroupName="Importance" Content="Важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
                         <RadioButton x:Name="RadioButton_Importance3" GroupName="Importance" Content="Очень важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
                     </WrapPanel>

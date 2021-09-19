@@ -28,6 +28,8 @@ namespace TasksListWpfApp
         int importance;
         string taskContent="";
         string limit="";
+        Brush color1, color2, color3;
+
 
         public MainWindow()
         {
@@ -36,6 +38,8 @@ namespace TasksListWpfApp
             TableImportance1.IsEnabled = false;
             TableImportance2.IsEnabled = false;
             TableImportance3.IsEnabled = false;
+            SelectColor.IsEnabled = false;
+            SaveColor.IsEnabled = false;
             TextBox_TaskContent.IsEnabled = false;
             TextBox_Limit.IsEnabled = false;
             SaveTask.IsEnabled = false;
@@ -68,59 +72,46 @@ namespace TasksListWpfApp
                 TableImportance1.IsEnabled = true;
                 TableImportance2.IsEnabled = true;
                 TableImportance3.IsEnabled = true;
+                SelectColor.IsEnabled = true;
+                SaveColor.IsEnabled = true;
             }
 
-            if (select == "SelectB") { }           
-        }
-        
-        
-        private void Importance1_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Importance1_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Importance2_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Importance2_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Importance3_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Importance3_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+            if (select == "SelectB") this.Close();           
+        }             
      
-        private void SelectColor1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SelectColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var select = ((TextBlock)SelectAction.SelectedItem).Name;
+            if (select == "LightSkyBlue")  SelectColor.Background=Brushes.LightSkyBlue;
+            if (select == "LightBlue") SelectColor.Background = Brushes.LightBlue;
+            if (select == "SpringGreen") SelectColor.Background = Brushes.SpringGreen;
+            if (select == "LightGreen") SelectColor.Background = Brushes.LightGreen;
+            if (select == "Orange") SelectColor.Background = Brushes.Orange;
+            if (select == "Yellow") SelectColor.Background = Brushes.Yellow;
+            if (select == "PaleVioletRed") SelectColor.Background = Brushes.PaleVioletRed;
+            if (select == "Coral") SelectColor.Background = Brushes.Coral;
         }
 
-        private void SelectColor2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Color_Click(object sender, RoutedEventArgs e)
         {
+            var color = (Button)sender;
+            if (TableImportance1.IsChecked == true) RadioButton_Importance1.Background = color.Background;
+            if (TableImportance2.IsChecked == true) RadioButton_Importance2.Background = color.Background;
+            if (TableImportance3.IsChecked == true) RadioButton_Importance3.Background = color.Background;
+        }
+        private void SaveColor_Click(object sender, RoutedEventArgs e)
+        {
+            color1 = RadioButton_Importance1.Background;
+            color2 = RadioButton_Importance2.Background;
+            color3 = RadioButton_Importance3.Background;
 
+            TableImportance1.IsEnabled = false;
+            TableImportance2.IsEnabled = false;
+            TableImportance3.IsEnabled = false;
+            SelectColor.IsEnabled = false;
+            SaveColor.IsEnabled = false;
         }
 
-        private void SelectColor3_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-        
-       
         private void Importance_RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton pressed = (RadioButton)sender;
@@ -148,6 +139,10 @@ namespace TasksListWpfApp
             
             foreach (var k in level.Keys)
             {
+                if (k == 1) ObjectiveList.Background = color1;
+                if (k == 2) ObjectiveList.Background = color2;
+                if (k == 3) ObjectiveList.Background = color3;
+
                 if (level[k].AnyLevel.Count != 0)
                 {
                     var taskArr = level[k].AnyLevel.ToArray();
@@ -172,13 +167,14 @@ namespace TasksListWpfApp
             RadioButton_Importance3.IsChecked = false;
         }
 
-        public static Dictionary<int, ImportanceTable> CreatTaskList()
+        public Dictionary<int, ImportanceTable> CreatTaskList()
         {
             var level = new Dictionary<int, ImportanceTable>(3);
-            level.Add(3, new ImportanceTable(new Queue<Objective>(), 3, ConsoleColor.Yellow));
-            level.Add(2, new ImportanceTable(new Queue<Objective>(), 2, ConsoleColor.Blue));
-            level.Add(1, new ImportanceTable(new Queue<Objective>(), 1, ConsoleColor.Magenta));
+            level.Add(3, new ImportanceTable(new Queue<Objective>(), 3, ConsoleColor.White));
+            level.Add(2, new ImportanceTable(new Queue<Objective>(), 2, ConsoleColor.White));
+            level.Add(1, new ImportanceTable(new Queue<Objective>(), 1, ConsoleColor.White));
             return level;
-        }        
+        }
+
     }
 }
