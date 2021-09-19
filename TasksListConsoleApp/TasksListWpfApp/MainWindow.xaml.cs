@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -142,22 +143,29 @@ namespace TasksListWpfApp
         {        
             var task = new Objective(importance, taskContent, limit);
             level[task.Importance].AnyLevel.Enqueue(task);
-            Objective taskList = (Objective)((ListView)sender).SelectedItem;
-                        
+            taskList.Clear();
+            //taskList = new ObservableCollection<Objective> { };
+            //ObjectiveList.ItemsSource = taskList;
+            
             foreach (var k in level.Keys)
             {
                 if (level[k].AnyLevel.Count != 0)
                 {
                     var taskArr = level[k].AnyLevel.ToArray();
                     foreach (var t in taskArr)
-                    {
-                        taskList.Importance = k;
-                        taskList.TaskContent = t.TaskContent;
-                        taskList.Limit = t.Limit; 
+                    {                        
+                        taskList.CollectionChanged += Objective_CollectionChanged;
+                        taskList.Add(new Objective(k, t.TaskContent, t.Limit));
                     }
                 }
-            }                        
+            }          
+            
             MessageBox.Show("Добавляем задачу");
+        }
+
+        private void Objective_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void СlearForm_Click(object sender, RoutedEventArgs e)

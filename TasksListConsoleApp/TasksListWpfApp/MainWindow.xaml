@@ -88,6 +88,7 @@
             <ListView Name="ObjectiveList" >
                 <ListView.View>
                     <GridView >
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Importance}" Width="100">Важность</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=TaskContent}" Width="650">Задача</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Limit}" Width="250">Срок выполнения</GridViewColumn>                        
                     </GridView>
