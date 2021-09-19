@@ -40,7 +40,7 @@ namespace TasksListWpfApp
             TextBox_Limit.IsEnabled = false;
             SaveTask.IsEnabled = false;
             
-            taskList = new ObservableCollection<Objective> { };
+            taskList = new ObservableCollection<Objective> ();
             ObjectiveList.ItemsSource = taskList;
         }
 
@@ -143,20 +143,15 @@ namespace TasksListWpfApp
         {        
             var task = new Objective(importance, taskContent, limit);
             level[task.Importance].AnyLevel.Enqueue(task);
-            taskList.Clear();
-            //taskList = new ObservableCollection<Objective> { };
-            //ObjectiveList.ItemsSource = taskList;
+            taskList = new ObservableCollection<Objective> ();
+            ObjectiveList.ItemsSource = taskList;
             
             foreach (var k in level.Keys)
             {
                 if (level[k].AnyLevel.Count != 0)
                 {
                     var taskArr = level[k].AnyLevel.ToArray();
-                    foreach (var t in taskArr)
-                    {                        
-                        taskList.CollectionChanged += Objective_CollectionChanged;
-                        taskList.Add(new Objective(k, t.TaskContent, t.Limit));
-                    }
+                    foreach (var t in taskArr) taskList.Add(new Objective(k, t.TaskContent, t.Limit));
                 }
             }          
             
