@@ -83,8 +83,8 @@
         </TabItem>
 
         <TabItem Header="Готовый список задач" Height="30" Width="200" FontSize="15" Background="LightBlue">
-            <ListView Name="ObjectiveList" >
-                <ListView.View>
+            <ListView Name="ObjectiveList" >                
+                <ListView.View >
                     <GridView >
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Importance}" Width="100">Важность</GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=TaskContent}" Width="650">Задача</GridViewColumn>
