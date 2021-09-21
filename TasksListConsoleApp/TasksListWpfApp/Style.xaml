@@ -52,20 +52,4 @@
         <Setter Property="Margin" Value="20" />
     </Style>
 
-    <Style x:Key="style_ListView" TargetType="{x:Type ListViewItem}">        
-         <Style.Triggers>
-            <DataTrigger Binding="{Binding Importance}" Value="1">
-                        <Setter Property="Background" Value="Blue" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Importance}" Value="2">
-                <Setter Property="Background" Value="Yellow" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Importance}" Value="3">
-                <Setter Property="Background" Value="Red" />
-            </DataTrigger>
-         </Style.Triggers>
-    </Style>    
-    
-    
-
 </ResourceDictionary>

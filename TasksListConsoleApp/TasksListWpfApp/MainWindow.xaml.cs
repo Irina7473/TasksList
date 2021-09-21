@@ -42,9 +42,7 @@ namespace TasksListWpfApp
             TableImportance2.IsEnabled = false;
             TableImportance3.IsEnabled = false;
             SelectColor.IsEnabled = false;
-            SaveColor.IsEnabled = false;
-            //TextBox_TaskContent.IsEnabled = false;
-            //TextBox_Limit.IsEnabled = false;
+            SaveColor.IsEnabled = false;            
             SaveTask.IsEnabled = false;
             RadioButton_Importance1.Background = color1;
             RadioButton_Importance2.Background = color2;
@@ -63,15 +61,17 @@ namespace TasksListWpfApp
 
             if (select == "SelectX")
             {
-                if(level==null) level = CreatTaskList();
-                //TextBox_TaskContent.IsEnabled = true;
-                //TextBox_Limit.IsEnabled = true;
+                if(level==null) level = CreatTaskList();                
                 SaveTask.IsEnabled = true;
             }
 
-            if (select == "SelectC")   {/*Пока не сделано*/ }
+            if (select == "SelectC")
+            {
+                SaveToFile.RecordToFile(level);
+                MessageBox.Show("Задачи записаны в файл");
+            }
 
-            if (select == "SelectV")
+                if (select == "SelectV")
             {
                 TableImportance1.IsEnabled = true;
                 TableImportance2.IsEnabled = true;
@@ -99,11 +99,7 @@ namespace TasksListWpfApp
         private void Color_Click(object sender, RoutedEventArgs e)
         {
             var color = (Button)sender;
-            if (TableImportance1.IsChecked == true)
-            {
-                TableImportance1.Background = color.Background;
-                //RadioButton_Importance1.Background = color.Background;
-            }
+            if (TableImportance1.IsChecked == true) TableImportance1.Background = color.Background;
             if (TableImportance2.IsChecked == true) TableImportance2.Background = color.Background;
             if (TableImportance3.IsChecked == true) TableImportance3.Background = color.Background;
         }
@@ -174,7 +170,7 @@ namespace TasksListWpfApp
                     ObjectiveList.Items.Refresh();
                 }
 
-                MessageBox.Show("Добавляем задачу");
+                MessageBox.Show("Задача добавлена в список");
             }
         }
 
@@ -203,23 +199,3 @@ namespace TasksListWpfApp
 
     }
 }
-
-/*
-  <ListView Name="Importance">
-                    <ListView.Resources>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Importance}" Value="1">
-                                    <Setter Property="Background" Value="Blue" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Importance}" Value="2">
-                                    <Setter Property="Background" Value="Yellow" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Importance}" Value="3">
-                                    <Setter Property="Background" Value="Red" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.Resources>
-                </ListView>
-*/
