@@ -8,9 +8,10 @@ using System.Reflection;
 using ClassLibrari;
 
 namespace TasksListWpfApp
-{
+{    
     public static class SaveToFile
-    {        
+    {
+        public static Message Info;
         public static string FilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TaskList.txt");
         /*
         public static SaveToFile() { }
@@ -28,20 +29,25 @@ namespace TasksListWpfApp
 
         public static void RecordToFile(Dictionary<int, ImportanceTable> level)
         {
-            string text="";
-            using var file=File.CreateText(FilePath);
-            foreach (var k in level.Keys)
+            if (level ==null) Info?.Invoke("Список не существует. Создайте список задач.");
+            else
             {
-                if (level[k].AnyLevel.Count!=0)
+                string text = "";
+                using var file = File.CreateText(FilePath);
+                foreach (var k in level.Keys)
                 {
-                    var taskArr = level[k].AnyLevel.ToArray();
-                    foreach (var task in taskArr)
+                    if (level[k].AnyLevel.Count != 0)
                     {
-                        text = task.Importance + "/" + task.TaskContent + "/" + task.Limit;
-                        file.WriteLine(text);
+                        var taskArr = level[k].AnyLevel.ToArray();
+                        foreach (var task in taskArr)
+                        {
+                            text = task.Importance + "/" + task.TaskContent + "/" + task.Limit;
+                            file.WriteLine(text);
+                        }
                     }
                 }
-            }                        
+                Info?.Invoke("Список задач записан в файл");
+            }
         }
         
         /*

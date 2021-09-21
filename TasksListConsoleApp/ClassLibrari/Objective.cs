@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace ClassLibrari
 {
+    //public delegate void Message(string message);
+    
     public class Objective
     {
         public int Importance { get; set; }

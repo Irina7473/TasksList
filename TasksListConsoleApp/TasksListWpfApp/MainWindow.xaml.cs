@@ -21,18 +21,21 @@ namespace TasksListWpfApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    public delegate void Message(string message);
     public partial class MainWindow : Window
     {
         //public ObservableCollection<Objective> taskList;
         List<ListViewItem> ITEMS = new List<ListViewItem>();
         Dictionary<int, ImportanceTable> level;
 
+        public Message Info;
+
         int importance=0;
         string taskContent="";
         string limit="";
         Brush color1= Brushes.Silver;
         Brush color2= Brushes.Lime;
-        Brush color3= Brushes.Tomato;   
+        Brush color3= Brushes.Tomato;
 
         public MainWindow()
         {
@@ -56,8 +59,14 @@ namespace TasksListWpfApp
         private void SelectAction_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var select = ((TextBlock)SelectAction.SelectedItem).Name;
-            
-            if (select == "SelectZ") level = CreatTaskList();
+
+            if (select == "SelectZ")
+            {
+                ITEMS.Clear();
+                ObjectiveList.Items.Refresh();
+                level = CreatTaskList();
+                Info = msg => MessageBox.Show(msg);
+            }
 
             if (select == "SelectX")
             {
@@ -68,7 +77,7 @@ namespace TasksListWpfApp
             if (select == "SelectC")
             {
                 SaveToFile.RecordToFile(level);
-                MessageBox.Show("Задачи записаны в файл");
+                SaveToFile.Info = msg => MessageBox.Show(msg);                
             }
 
                 if (select == "SelectV")
@@ -194,6 +203,8 @@ namespace TasksListWpfApp
             level.Add(3, new ImportanceTable(new Queue<Objective>(), 3, ConsoleColor.White));
             level.Add(2, new ImportanceTable(new Queue<Objective>(), 2, ConsoleColor.White));
             level.Add(1, new ImportanceTable(new Queue<Objective>(), 1, ConsoleColor.White));
+
+            Info?.Invoke("Новый список задач создан");
             return level;
         }
 
