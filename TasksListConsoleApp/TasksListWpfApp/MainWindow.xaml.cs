@@ -20,15 +20,12 @@ namespace TasksListWpfApp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public delegate void Message(string message);
+    /// </summary>    
     public partial class MainWindow : Window
     {
         //public ObservableCollection<Objective> taskList;
         List<ListViewItem> ITEMS = new List<ListViewItem>();
         Dictionary<int, ImportanceTable> level;
-
-        public Message Info;
 
         int importance=0;
         string taskContent="";
@@ -64,14 +61,18 @@ namespace TasksListWpfApp
             {
                 ITEMS.Clear();
                 ObjectiveList.Items.Refresh();
-                level = CreatTaskList();
-                Info = msg => MessageBox.Show(msg);
+                level = ImportanceTable.CreatTaskList();
+                ImportanceTable.Info = msg => MessageBox.Show(msg);
             }
 
             if (select == "SelectX")
             {
-                if(level==null) level = CreatTaskList();                
-                SaveTask.IsEnabled = true;
+                if (level == null)
+                {
+                    level = ImportanceTable.CreatTaskList();
+                    ImportanceTable.Info = msg => MessageBox.Show(msg);
+                }
+                SaveTask.IsEnabled = true;                
             }
 
             if (select == "SelectC")
@@ -94,15 +95,8 @@ namespace TasksListWpfApp
      
         private void SelectColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var select = ((TextBlock)SelectAction.SelectedItem).Name;
-            if (select == "LightSkyBlue")  SelectColor.Background=Brushes.LightSkyBlue;
-            if (select == "LightBlue") SelectColor.Background = Brushes.LightBlue;
-            if (select == "SpringGreen") SelectColor.Background = Brushes.SpringGreen;
-            if (select == "LightGreen") SelectColor.Background = Brushes.LightGreen;
-            if (select == "Orange") SelectColor.Background = Brushes.Orange;
-            if (select == "Yellow") SelectColor.Background = Brushes.Yellow;
-            if (select == "PaleVioletRed") SelectColor.Background = Brushes.PaleVioletRed;
-            if (select == "Coral") SelectColor.Background = Brushes.Coral;
+            //Не работает этот код
+            SelectColor.Background = ((Button)SelectAction.SelectedItem).Background;            
         }
 
         private void Color_Click(object sender, RoutedEventArgs e)
@@ -152,9 +146,16 @@ namespace TasksListWpfApp
             else
             {
                 var task = new Objective(importance, taskContent, limit);
-                level[task.Importance].AnyLevel.Enqueue(task);
-                //taskList = new ObservableCollection<Objective> ();
-                //ObjectiveList.ItemsSource = taskList;
+                Objective.Info = msg => MessageBox.Show(msg);
+                
+                level[task.Importance].AddTask(task);
+                ImportanceTable.Add += UpdateObjectiveList;
+                ImportanceTable.Info = msg => MessageBox.Show(msg);
+               
+                //level[task.Importance].AnyLevel.Enqueue(task);
+                //UpdateObjectiveList();
+               
+                /*
                 ITEMS = new List<ListViewItem>();
 
                 foreach (var k in level.Keys)
@@ -177,17 +178,12 @@ namespace TasksListWpfApp
                         }
                     }
                     ObjectiveList.Items.Refresh();
-                }
+                }*/
 
-                MessageBox.Show("Задача добавлена в список");
+                //MessageBox.Show("Задача добавлена в список");
             }
         }
-
-        private void Objective_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+   
         private void СlearForm_Click(object sender, RoutedEventArgs e)
         {
             TextBox_TaskContent.Text = "";
@@ -197,16 +193,31 @@ namespace TasksListWpfApp
             RadioButton_Importance3.IsChecked = false;
         }
 
-        public Dictionary<int, ImportanceTable> CreatTaskList()
+        private void UpdateObjectiveList ()
         {
-            var level = new Dictionary<int, ImportanceTable>(3);
-            level.Add(3, new ImportanceTable(new Queue<Objective>(), 3, ConsoleColor.White));
-            level.Add(2, new ImportanceTable(new Queue<Objective>(), 2, ConsoleColor.White));
-            level.Add(1, new ImportanceTable(new Queue<Objective>(), 1, ConsoleColor.White));
+            ITEMS = new List<ListViewItem>();
 
-            Info?.Invoke("Новый список задач создан");
-            return level;
+            foreach (var k in level.Keys)
+            {
+                if (level[k].AnyLevel.Count != 0)
+                {
+                    var taskArr = level[k].AnyLevel.ToArray();
+                    foreach (var t in taskArr)
+                    {
+                        ListViewItem OneItem = new ListViewItem();
+                        if (k == 1) OneItem.Background = color1;
+                        if (k == 2) OneItem.Background = color2;
+                        if (k == 3) OneItem.Background = color3;
+
+                        OneItem.Content = new Objective(k, t.TaskContent, t.Limit);
+                        ITEMS.Add(OneItem);
+                        ObjectiveList.ItemsSource = ITEMS; 
+                    }
+                }
+                ObjectiveList.Items.Refresh();
+                MessageBox.Show("Список обновлен");
+            }
+
         }
-
     }
 }

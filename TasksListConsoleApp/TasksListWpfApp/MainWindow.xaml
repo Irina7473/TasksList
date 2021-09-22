@@ -45,8 +45,8 @@
                             <CheckBox x:Name="TableImportance2" IsChecked="False" Content="Важно" Style="{DynamicResource style_CheckBox}"/>
                             <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Style="{DynamicResource style_CheckBox}" />
                             <ComboBox x:Name="SelectColor" SelectionChanged="SelectColor_SelectionChanged" Height="30" Width="200" >
-                                <Button x:Name="LightSkyBlue" Background="LightSkyBlue"  Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
-                                <Button x:Name="LightBlue" Background="LightBlue"  Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="LightSkyBlue" Content="LightSkyBlue" Click="Color_Click" Background="LightSkyBlue" Style="{DynamicResource style_Button_Color}" />
+                                <Button x:Name="LightBlue" Background="LightBlue" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
                                 <Button x:Name="SpringGreen" Background="SpringGreen" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
                                 <Button x:Name="LightGreen" Background="LightGreen" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
                                 <Button x:Name="Orange" Background="Orange" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />

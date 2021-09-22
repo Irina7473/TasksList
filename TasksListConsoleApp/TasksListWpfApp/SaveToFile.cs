@@ -50,35 +50,24 @@ namespace TasksListWpfApp
             }
         }
         
-        /*
-        public static void ConsolReader()
+        //todo
+        public static void ReaderFromFail()
         {
             if (File.Exists(FilePath))
             {
                 StreamReader reader = new(FilePath);
-                Console.WriteLine(reader.ReadToEnd());
+                ImportanceTable.CreatTaskList();    
+        
                 reader.Close();
             }
-            else Console.WriteLine("Файл не существует или путь указан неверно");
-        }*/
-
-        /*
-        public static void Reader()
-        {
-            if (File.Exists(FilePath))
-            {
-                StreamReader reader = new(FilePath);
-                Menu.CreatTaskList();                
-                reader.Close();
-            }
-            else Console.WriteLine("Файл не существует или путь указан неверно");
-        }       */
+            else Info?.Invoke("Файл не существует или путь указан неверно");
+        }      
 
         public static void ClearFile()
         {
             if (File.Exists(FilePath))
                 File.WriteAllText(FilePath, null);
-            //else Console.WriteLine("Файл не существует или путь указан неверно");
+            else  Info?.Invoke("Файл не существует или путь указан неверно");
         }
     }
 }
