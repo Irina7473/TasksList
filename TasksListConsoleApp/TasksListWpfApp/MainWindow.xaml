@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TasksListWpfApp"
         mc:Ignorable="d"
-        Title="******** Список задач! ********" Height="450" Width="1000" Background="CornflowerBlue">
+        Title="******** Список задач! ********" Height="500" Width="1000" Background="CornflowerBlue">
     <Window.Resources>
         <ResourceDictionary Source="Style.xaml"/>
     </Window.Resources>
@@ -28,6 +28,7 @@
                         <Label Content="Выберите действие" Margin="10" HorizontalAlignment="Center"/>
                         <ComboBox x:Name="SelectAction" SelectionChanged="SelectAction_SelectionChanged" 
                           FontSize="15" Height="50" Width="300" VerticalAlignment="Bottom" >
+                            <TextBlock x:Name="SelectA" Text="Загрузка списка задач из файла" TextWrapping="Wrap" Width="250"/>
                             <TextBlock x:Name="SelectZ" Text="Создание нового списка задач" TextWrapping="Wrap" Width="250"/>
                             <TextBlock x:Name="SelectX" Text="Добавление новых задач в список" TextWrapping="Wrap" Width="250"/>
                             <TextBlock x:Name="SelectC" Text="Запись списка задач в текстовый файл" TextWrapping="Wrap" Width="250"/>
@@ -38,24 +39,48 @@
                     <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" Background="CornflowerBlue"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                     <StackPanel  Grid.Row="2" Margin="0,10,0,0">
-                        <Label Content="Таблица важности" Height="40" />
+                        <Label Content="Таблица важности" Height="30" />
                         <Label Content="Выберите цвет для каждого уровня важности"  />
-                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                            <CheckBox x:Name="TableImportance1" IsChecked="False" Content="Не очень важно" Style="{DynamicResource style_CheckBox}"/>
-                            <CheckBox x:Name="TableImportance2" IsChecked="False" Content="Важно" Style="{DynamicResource style_CheckBox}"/>
-                            <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Style="{DynamicResource style_CheckBox}" />
-                            <ComboBox x:Name="SelectColor" SelectionChanged="SelectColor_SelectionChanged" Height="30" Width="200" >
-                                <Button x:Name="LightSkyBlue" Content="LightSkyBlue" Click="Color_Click" Background="LightSkyBlue" Style="{DynamicResource style_Button_Color}" />
-                                <Button x:Name="LightBlue" Background="LightBlue" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
-                                <Button x:Name="SpringGreen" Background="SpringGreen" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
-                                <Button x:Name="LightGreen" Background="LightGreen" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
-                                <Button x:Name="Orange" Background="Orange" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
-                                <Button x:Name="Yellow" Background="Yellow" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
-                                <Button x:Name="PaleVioletRed" Background="PaleVioletRed" Click="Color_Click"  Style="{DynamicResource style_Button_Color}" />
-                                <Button x:Name="Coral" Background="Coral" Click="Color_Click" Style="{DynamicResource style_Button_Color}" />
-                            </ComboBox>
+                        
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox x:Name="TableImportance1" IsChecked="False" Content="Не очень важно" Style="{DynamicResource style_CheckBox}"/>
+                                <ComboBox Name="SelectColor1" Loaded="SelectColor_Loaded" SelectionChanged="SelectColor_SelectionChanged" Style="{DynamicResource style_ComboBox}" >
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate >
+                                            <DockPanel LastChildFill="True">
+                                                <Ellipse Height="15" Width="15" VerticalAlignment="Center"
+                                            DockPanel.Dock="Left">
+                                                    <Ellipse.Fill>
+                                                        <SolidColorBrush Color="{Binding Name}"/>
+                                                    </Ellipse.Fill>
+                                                </Ellipse>
+                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="2"  Background="{Binding Name}"/>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox x:Name="TableImportance2" IsChecked="False" Content="Важно" Style="{DynamicResource style_CheckBox}"/>
+                                <ComboBox x:Name="SelectColor2" SelectionChanged="SelectColor_SelectionChanged" Style="{DynamicResource style_ComboBox}">
+                                    <TextBlock Text="LightSkyBlue" Background="LightSkyBlue" Style="{DynamicResource style_TextBlock}"/>
+
+                                    <Button x:Name="LightBlue" Background="LightBlue"  Style="{DynamicResource style_Button_Color}" />
+                                    <Button x:Name="SpringGreen" Background="SpringGreen"  Style="{DynamicResource style_Button_Color}" />
+                                    <Button x:Name="LightGreen" Background="LightGreen"  Style="{DynamicResource style_Button_Color}" />
+                                    <Button x:Name="Orange" Background="Orange"  Style="{DynamicResource style_Button_Color}" />
+                                    <Button x:Name="Yellow" Background="Yellow"  Style="{DynamicResource style_Button_Color}" />
+                                    <Button x:Name="PaleVioletRed" Background="PaleVioletRed"   Style="{DynamicResource style_Button_Color}" />
+                                    <Button x:Name="Coral" Background="Coral"  Style="{DynamicResource style_Button_Color}" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Style="{DynamicResource style_CheckBox}" />
+                                <ComboBox x:Name="SelectColor3" SelectionChanged="SelectColor_SelectionChanged" Style="{DynamicResource style_ComboBox}">                                    
+                                </ComboBox>
+                            </StackPanel>
                             <Button x:Name="SaveColor" Content="Сохранить выбор" Click="SaveColor_Click" Style="{DynamicResource style_Button}"/>
-                        </WrapPanel>
+                        
                     </StackPanel>
                 </Grid>
                 <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" Background="CornflowerBlue"

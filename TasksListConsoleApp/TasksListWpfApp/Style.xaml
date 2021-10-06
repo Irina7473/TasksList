@@ -17,7 +17,7 @@
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="Width" Value="150" />
         <Setter Property="Height" Value="30" />
-        <Setter Property="Margin" Value="20" />
+        <Setter Property="Margin" Value="10" />
     </Style>
 
     <Style x:Key="style_Button_Color" TargetType="Button">
@@ -32,8 +32,8 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
         </Style.Triggers>        
-        <Setter Property="Width" Value="100" />
-        <Setter Property="Height" Value="20" />        
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="5" />        
     </Style>
 
     <Style x:Key="style_CheckBox" TargetType="CheckBox">
@@ -49,7 +49,43 @@
             </MultiDataTrigger>
         </Style.Triggers>        
         <Setter Property="Height" Value="30" />
-        <Setter Property="Margin" Value="20" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="style_ComboBox" TargetType="ComboBox">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=input_Name, Path=Text}" Value="" />
+                    <Condition Binding="{Binding ElementName=input_Age, Path=Text}" Value="" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="IsEnabled" Value="False" />
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="style_TextBlock" TargetType="TextBlock">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=input_Name, Path=Text}" Value="" />
+                    <Condition Binding="{Binding ElementName=input_Age, Path=Text}" Value="" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="IsEnabled" Value="False" />
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="30" />
+        
+        
     </Style>
 
 </ResourceDictionary>

@@ -51,16 +51,29 @@ namespace TasksListWpfApp
         }
         
         //todo
-        public static void ReaderFromFail()
+        public static Dictionary<int, ImportanceTable> ReaderFromFail()
         {
             if (File.Exists(FilePath))
             {
-                StreamReader reader = new(FilePath);
-                ImportanceTable.CreatTaskList();    
-        
-                reader.Close();
+                var level = ImportanceTable.CreatTaskList();
+                using (StreamReader reader = new StreamReader(FilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] taskfeld = line.Split('/');
+                        var task = new Objective(Int32.Parse(taskfeld[0]), taskfeld[1], taskfeld[2]);
+                        level[Int32.Parse(taskfeld[0])].AddTask(task);
+                    }
+                }
+                Info?.Invoke("Список задач загружен из файла");                
+                return level;
             }
-            else Info?.Invoke("Файл не существует или путь указан неверно");
+            else
+            {
+                Info?.Invoke("Файл не существует или путь указан неверно");
+                return null;
+            }
         }      
 
         public static void ClearFile()
