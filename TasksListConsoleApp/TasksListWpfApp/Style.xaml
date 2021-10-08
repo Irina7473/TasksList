@@ -20,6 +20,26 @@
         <Setter Property="Margin" Value="10" />
     </Style>
 
+    <Style x:Key="style_Button_Action" TargetType="Button">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=input_Name, Path=Text}" Value="" />
+                    <Condition Binding="{Binding ElementName=input_Age, Path=Text}" Value="" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="IsEnabled" Value="False" />
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+        <Setter Property="Background" Value="LightSteelBlue" />
+        <Setter Property="Foreground" Value="Black" />
+        
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+
     <Style x:Key="style_Button_Color" TargetType="Button">
         <Style.Triggers>
             <MultiDataTrigger>

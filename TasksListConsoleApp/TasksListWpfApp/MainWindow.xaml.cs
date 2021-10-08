@@ -23,16 +23,16 @@ namespace TasksListWpfApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>    
-        
+
     public partial class MainWindow : Window
     {
         //public ObservableCollection<Objective> taskList;
         List<ListViewItem> ITEMS = new List<ListViewItem>();
         Dictionary<int, ImportanceTable> level;
 
-        int importance=0;
-        string taskContent="";
-        string limit="";
+        int importance = 0;
+        string taskContent = "";
+        string limit = "";
 
         private ObservableCollection<ColorsServices> ColorCollection = new ObservableCollection<ColorsServices>();
         public void GetColorId()
@@ -41,9 +41,9 @@ namespace TasksListWpfApp
             ColorCollection.Add(new ColorsServices(1, System.Drawing.Color.Yellow));
             //ColorCollection.Add(new ColorsServices(2, Brushes.Green));
             //ColorCollection.Add(new ColorsServices(3, Brushes.Gray));
-           // ColorCollection.Add(new ColorsServices(4, Brushes.PaleGreen));
-           // ColorCollection.Add(new ColorsServices(5, Brushes.Violet));
-           // ColorCollection.Add(new ColorsServices(6, Brushes.CadetBlue));
+            // ColorCollection.Add(new ColorsServices(4, Brushes.PaleGreen));
+            // ColorCollection.Add(new ColorsServices(5, Brushes.Violet));
+            // ColorCollection.Add(new ColorsServices(6, Brushes.CadetBlue));
         }
 
         System.Windows.Media.Brush color1 = System.Windows.Media.Brushes.Silver;
@@ -59,7 +59,7 @@ namespace TasksListWpfApp
             TableImportance1.IsEnabled = false;
             TableImportance2.IsEnabled = false;
             TableImportance3.IsEnabled = false;
-            SaveColor.IsEnabled = false;            
+            SaveColor.IsEnabled = false;
             SaveTask.IsEnabled = false;
             RadioButton_Importance1.Background = color1;
             RadioButton_Importance2.Background = color2;
@@ -72,78 +72,75 @@ namespace TasksListWpfApp
             SelectColor1.ItemsSource = ColorCollection;
         }
 
-        private void SelectAction_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Uploading_Click(object sender, RoutedEventArgs e)
         {
-            var select = ((TextBlock)SelectAction.SelectedItem).Name;
-
-            //Загрузка списка задач из файла
-            if (select == "SelectA")
-            {
-                //ImportanceTable.Info = msg => MessageBox.Show(msg);
-                ITEMS.Clear();
-                ObjectiveList.Items.Refresh();                
-                level = SaveToFile.ReaderFromFail();
-                UpdateObjectiveList();
-            }
-
-            //Создание нового списка задач с очисткой старого
-            if (select == "SelectZ")
-            {
-                ImportanceTable.Info = msg => MessageBox.Show(msg);
-                ITEMS.Clear();
-                ObjectiveList.Items.Refresh();
-                level = ImportanceTable.CreatTaskList();                
-            }
-
-            //Добавление задач в список
-            if (select == "SelectX")
-            {
-                if (level == null)
-                {
-                    ImportanceTable.Info = msg => MessageBox.Show(msg);
-                    level = ImportanceTable.CreatTaskList();                    
-                }
-                SaveTask.IsEnabled = true;                
-            }
-
-            //Запись в файл
-            if (select == "SelectC")
-            {
-                SaveToFile.Info = msg => MessageBox.Show(msg);
-                SaveToFile.RecordToFile(level);
-                               
-            }
-
-                if (select == "SelectV")
-            {
-                TableImportance1.IsEnabled = true;
-                TableImportance2.IsEnabled = true;
-                TableImportance3.IsEnabled = true;
-                SelectColor2.IsEnabled = true;
-                SaveColor.IsEnabled = true;
-            }
-
-                //Выход из программы
-            if (select == "SelectB") this.Close();           
+            //ImportanceTable.Info = msg => MessageBox.Show(msg);
+            ITEMS.Clear();
+            ObjectiveList.Items.Refresh();
+            level = SaveToFile.ReaderFromFail();
+            UpdateObjectiveList();
         }
 
+        private void Creating_Click(object sender, RoutedEventArgs e)
+        {
+            ImportanceTable.Info = msg => MessageBox.Show(msg);
+            ITEMS.Clear();
+            ObjectiveList.Items.Refresh();
+            level = ImportanceTable.CreatTaskList();
+
+        }
+
+        private void Addendum_Click(object sender, RoutedEventArgs e)
+        {
+            if (level == null)
+            {
+                ImportanceTable.Info = msg => MessageBox.Show(msg);
+                level = ImportanceTable.CreatTaskList();
+            }
+            SaveTask.IsEnabled = true;
+        }
+
+        private void Discharge_Click(object sender, RoutedEventArgs e)
+        {
+            SaveToFile.Info = msg => MessageBox.Show(msg);
+            SaveToFile.RecordToFile(level);
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            ExitWindow exit = new ExitWindow();
+            if (exit.ShowDialog() == true)
+            {
+                this.Close();
+            }
+
+        }
+
+        private void Create_importance_tables_Click(object sender, RoutedEventArgs e)
+        {
+            TableImportance1.IsEnabled = true;
+            TableImportance2.IsEnabled = true;
+            TableImportance3.IsEnabled = true;
+            SaveColor.IsEnabled = true;
+        }
 
         private void SelectColor_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void SelectColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Не работает этот код
             //SelectColor.Background = ((TextBlock)SelectAction.SelectedItem).Background;
-            
-            var color =( (TextBlock)SelectAction.SelectedItem).Background;
+            /*
+            System.Windows.Media.Brush color="Blue";
             if (TableImportance1.IsChecked == true) TableImportance1.Background = color;
             if (TableImportance2.IsChecked == true) TableImportance2.Background = color;
             if (TableImportance3.IsChecked == true) TableImportance3.Background = color;
+            */
         }
-        
+
         private void SaveColor_Click(object sender, RoutedEventArgs e)
         {
             color1 = RadioButton_Importance1.Background = TableImportance1.Background;
@@ -155,7 +152,7 @@ namespace TasksListWpfApp
             TableImportance3.IsChecked = false;
             TableImportance1.IsEnabled = false;
             TableImportance2.IsEnabled = false;
-            TableImportance3.IsEnabled = false;            
+            TableImportance3.IsEnabled = false;
             SaveColor.IsEnabled = false;
         }
 
@@ -182,15 +179,15 @@ namespace TasksListWpfApp
             if (importance == 0) MessageBox.Show("Выберите уровень важности задачи");
             else
             {
-                var task = new Objective(importance, taskContent, limit);                
-                
+                var task = new Objective(importance, taskContent, limit);
+
                 level[task.Importance].AddTask(task);
                 UpdateObjectiveList();
                 //ImportanceTable.Add += UpdateObjectiveList;
                 //ImportanceTable.Info = msg => MessageBox.Show(msg);
             }
         }
-   
+
         private void СlearForm_Click(object sender, RoutedEventArgs e)
         {
             TextBox_TaskContent.Text = "";
@@ -200,7 +197,7 @@ namespace TasksListWpfApp
             RadioButton_Importance3.IsChecked = false;
         }
 
-        private void UpdateObjectiveList ()
+        private void UpdateObjectiveList()
         {
             ITEMS = new List<ListViewItem>();
 
@@ -218,7 +215,7 @@ namespace TasksListWpfApp
 
                         OneItem.Content = new Objective(k, t.TaskContent, t.Limit);
                         ITEMS.Add(OneItem);
-                        ObjectiveList.ItemsSource = ITEMS; 
+                        ObjectiveList.ItemsSource = ITEMS;
                     }
                 }
                 ObjectiveList.Items.Refresh();
@@ -228,22 +225,3 @@ namespace TasksListWpfApp
 
     }
 }
-
-
-/*
- *<ComboBox Name="SelectColor1" Width="100" Loaded="SelectColor_Loaded">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate >
-                                            <DockPanel LastChildFill="True">
-                                                <Ellipse Height="15" Width="15" VerticalAlignment="Center"
-                                            DockPanel.Dock="Left">
-                                                    <Ellipse.Fill>
-                                                        <SolidColorBrush Color="{Binding Name}"/>
-                                                    </Ellipse.Fill>
-                                                </Ellipse>
-                                                <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Margin="2"/>
-                                            </DockPanel>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-*/

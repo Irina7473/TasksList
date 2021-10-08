@@ -12,7 +12,7 @@ namespace ClassLibrari
     public class ImportanceTable
     {
         public static Message Info;
-        public static event Update Add = () => { Info?.Invoke("Задача добавлена в список"); };
+        public static event Update Add = () => { /* Info?.Invoke("Задача добавлена в список"); */ };
 
         public Queue<Objective> AnyLevel { get; set; }
         public int NumberLevel { get; set; }
