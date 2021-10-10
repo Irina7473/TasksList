@@ -53,25 +53,24 @@
                         <Label Content="Выберите цвет для каждого уровня важности"  />                        
                         <StackPanel Orientation="Horizontal">
                                 <CheckBox x:Name="TableImportance1" IsChecked="False" Content="Не очень важно" Style="{DynamicResource style_CheckBox}"/>
-                                <ComboBox Name="SelectColor1" Loaded="SelectColor_Loaded" SelectionChanged="SelectColor_SelectionChanged" Style="{DynamicResource style_ComboBox}" >
+                            <ComboBox Name="SelectColor1" Style="{DynamicResource style_ComboBox}">
                                     <ComboBox.ItemTemplate>
-                                        <DataTemplate >
-                                            <DockPanel LastChildFill="True">
-                                                <Ellipse Height="15" Width="15" VerticalAlignment="Center"
-                                            DockPanel.Dock="Left">
-                                                    <Ellipse.Fill>
-                                                        <SolidColorBrush Color="{Binding Name}"/>
-                                                    </Ellipse.Fill>
-                                                </Ellipse>
-                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="2"  Background="{Binding Name}"/>
-                                            </DockPanel>
+                                        <DataTemplate DataType="{x:Type local:ColorsServices}" >
+                                        <DockPanel LastChildFill="True" >
+                                            <Ellipse Height="20" Width="20" VerticalAlignment="Center" DockPanel.Dock="Left">
+                                                <Ellipse.Fill>
+                                                    <SolidColorBrush Color="{Binding NameColor}"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5"  Background="{Binding Fond}"/>
+                                        </DockPanel>    
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox x:Name="TableImportance2" IsChecked="False" Content="Важно" Style="{DynamicResource style_CheckBox}"/>
-                                <ComboBox x:Name="SelectColor2" SelectionChanged="SelectColor_SelectionChanged" Style="{DynamicResource style_ComboBox}">
+                                <ComboBox x:Name="SelectColor2" Style="{DynamicResource style_ComboBox}">
                                     <TextBlock Text="LightSkyBlue" Background="LightSkyBlue" Style="{DynamicResource style_TextBlock}"/>
 
                                     <Button x:Name="LightBlue" Background="LightBlue"  Style="{DynamicResource style_Button_Color}" />
@@ -85,7 +84,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Style="{DynamicResource style_CheckBox}" />
-                                <ComboBox x:Name="SelectColor3" SelectionChanged="SelectColor_SelectionChanged" Style="{DynamicResource style_ComboBox}">                                    
+                                <ComboBox x:Name="SelectColor3" Style="{DynamicResource style_ComboBox}">                                    
                                 </ComboBox>
                             </StackPanel>                            
                     </StackPanel>

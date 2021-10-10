@@ -82,6 +82,8 @@
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Background"  Value="LightGreen" />
+
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
         </Style.Triggers>

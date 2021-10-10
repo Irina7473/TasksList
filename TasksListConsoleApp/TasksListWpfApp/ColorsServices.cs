@@ -1,27 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-//using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
+using System.Drawing;
 
-
-namespace ClassLibrari
+namespace TasksListWpfApp
 {
     public class ColorsServices
     {
         public ColorsServices() { }
-        public ColorsServices(int id, Color name)
+        public ColorsServices(int id, System.Drawing.Color name, System.Windows.Media.Brush fond, string nameColor)
         {
             Id = id;
             Name = name;
+            Fond = fond;
+            NameColor = nameColor;
+
         }
         public int Id { get; set; }
-        public System.Windows.Media.Brushes Name { get; set; }        
+        public System.Drawing.Color Name { get; set; }
+        public System.Windows.Media.Brush Fond { get; set; }
+        public string NameColor { get; set; }
     }
 }
 

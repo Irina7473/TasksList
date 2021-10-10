@@ -37,8 +37,8 @@ namespace TasksListWpfApp
         private ObservableCollection<ColorsServices> ColorCollection = new ObservableCollection<ColorsServices>();
         public void GetColorId()
         {
-            ColorCollection.Add(new ColorsServices(0, System.Drawing.Color.Bisque));
-            ColorCollection.Add(new ColorsServices(1, System.Drawing.Color.Yellow));
+            ColorCollection.Add(new ColorsServices(0, System.Drawing.Color.Gray, System.Windows.Media.Brushes.Gray, "Gray"));
+            ColorCollection.Add(new ColorsServices(1, System.Drawing.Color.Yellow, System.Windows.Media.Brushes.Yellow, "Yellow"));
             //ColorCollection.Add(new ColorsServices(2, Brushes.Green));
             //ColorCollection.Add(new ColorsServices(3, Brushes.Gray));
             // ColorCollection.Add(new ColorsServices(4, Brushes.PaleGreen));
@@ -46,12 +46,16 @@ namespace TasksListWpfApp
             // ColorCollection.Add(new ColorsServices(6, Brushes.CadetBlue));
         }
 
+        public ObservableCollection<ColorsServices> ColorList
+        {
+            get { return ColorCollection; }
+            set { ColorCollection = value; }
+        }
+
         System.Windows.Media.Brush color1 = System.Windows.Media.Brushes.Silver;
         System.Windows.Media.Brush color2 = System.Windows.Media.Brushes.Lime;
         System.Windows.Media.Brush color3 = System.Windows.Media.Brushes.Tomato;
-
-        SolidColorBrush redBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("Red");
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -69,16 +73,7 @@ namespace TasksListWpfApp
             //ObjectiveList.ItemsSource = taskList;
             ObjectiveList.ItemsSource = ITEMS;
             GetColorId();
-            SelectColor1.ItemsSource = ColorCollection;
-        }
-
-        private void Uploading_Click(object sender, RoutedEventArgs e)
-        {
-            //ImportanceTable.Info = msg => MessageBox.Show(msg);
-            ITEMS.Clear();
-            ObjectiveList.Items.Refresh();
-            level = SaveToFile.ReaderFromFail();
-            UpdateObjectiveList();
+            SelectColor1.ItemsSource = ColorList;
         }
 
         private void Creating_Click(object sender, RoutedEventArgs e)
@@ -87,7 +82,6 @@ namespace TasksListWpfApp
             ITEMS.Clear();
             ObjectiveList.Items.Refresh();
             level = ImportanceTable.CreatTaskList();
-
         }
 
         private void Addendum_Click(object sender, RoutedEventArgs e)
@@ -100,6 +94,15 @@ namespace TasksListWpfApp
             SaveTask.IsEnabled = true;
         }
 
+        private void Uploading_Click(object sender, RoutedEventArgs e)
+        {
+            //ImportanceTable.Info = msg => MessageBox.Show(msg);
+            ITEMS.Clear();
+            ObjectiveList.Items.Refresh();
+            level = SaveToFile.ReaderFromFail();
+            UpdateObjectiveList();
+        }
+
         private void Discharge_Click(object sender, RoutedEventArgs e)
         {
             SaveToFile.Info = msg => MessageBox.Show(msg);
@@ -109,11 +112,7 @@ namespace TasksListWpfApp
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             ExitWindow exit = new ExitWindow();
-            if (exit.ShowDialog() == true)
-            {
-                this.Close();
-            }
-
+            if (exit.ShowDialog() == true) this.Close();
         }
 
         private void Create_importance_tables_Click(object sender, RoutedEventArgs e)
@@ -124,28 +123,15 @@ namespace TasksListWpfApp
             SaveColor.IsEnabled = true;
         }
 
-        private void SelectColor_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SelectColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //Не работает этот код
-            //SelectColor.Background = ((TextBlock)SelectAction.SelectedItem).Background;
-            /*
-            System.Windows.Media.Brush color="Blue";
-            if (TableImportance1.IsChecked == true) TableImportance1.Background = color;
-            if (TableImportance2.IsChecked == true) TableImportance2.Background = color;
-            if (TableImportance3.IsChecked == true) TableImportance3.Background = color;
-            */
-        }
-
         private void SaveColor_Click(object sender, RoutedEventArgs e)
         {
-            color1 = RadioButton_Importance1.Background = TableImportance1.Background;
-            color2 = RadioButton_Importance2.Background = TableImportance2.Background;
-            color3 = RadioButton_Importance3.Background = TableImportance3.Background;
+            if (TableImportance1.IsChecked == true) color1 = (SelectColor1.SelectedItem as ColorsServices).Fond;
+            //if (TableImportance2.IsChecked == true) color2 = (SelectColor2.SelectedItem as ColorsServices).Fond;
+            //if (TableImportance3.IsChecked == true) color3 = (SelectColor3.SelectedItem as ColorsServices).Fond;
+
+            RadioButton_Importance1.Background = color1;
+            RadioButton_Importance2.Background = color2;
+            RadioButton_Importance3.Background = color3;
 
             TableImportance1.IsChecked = false;
             TableImportance2.IsChecked = false;
@@ -180,7 +166,6 @@ namespace TasksListWpfApp
             else
             {
                 var task = new Objective(importance, taskContent, limit);
-
                 level[task.Importance].AddTask(task);
                 UpdateObjectiveList();
                 //ImportanceTable.Add += UpdateObjectiveList;
@@ -222,6 +207,5 @@ namespace TasksListWpfApp
             }
             MessageBox.Show("Список обновлен");
         }
-
     }
 }
