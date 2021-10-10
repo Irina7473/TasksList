@@ -14,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Drawing;
 
 using ClassLibrari;
 
@@ -34,28 +33,35 @@ namespace TasksListWpfApp
         string taskContent = "";
         string limit = "";
 
+        Brush color1 = Brushes.Silver;
+        Brush color2 = Brushes.Lime;
+        Brush color3 = Brushes.Tomato;
+
+        Dictionary<string, Brush> colorSet = new Dictionary<string, Brush>
+        {
+            {"Gray",Brushes.Gray },
+            {"LightBlue",Brushes.LightBlue },
+            {"LightGreen",Brushes.LightGreen },
+            {"Yellow",Brushes.Yellow },
+            {"Orange",Brushes.Orange },
+            {"Coral",Brushes.Coral },
+            {"PaleVioletRed",Brushes.PaleVioletRed },
+            {"SandyBrown",Brushes.SandyBrown }
+        };
+
         private ObservableCollection<ColorsServices> ColorCollection = new ObservableCollection<ColorsServices>();
         public void GetColorId()
         {
-            ColorCollection.Add(new ColorsServices(0, System.Drawing.Color.Gray, System.Windows.Media.Brushes.Gray, "Gray"));
-            ColorCollection.Add(new ColorsServices(1, System.Drawing.Color.Yellow, System.Windows.Media.Brushes.Yellow, "Yellow"));
-            //ColorCollection.Add(new ColorsServices(2, Brushes.Green));
-            //ColorCollection.Add(new ColorsServices(3, Brushes.Gray));
-            // ColorCollection.Add(new ColorsServices(4, Brushes.PaleGreen));
-            // ColorCollection.Add(new ColorsServices(5, Brushes.Violet));
-            // ColorCollection.Add(new ColorsServices(6, Brushes.CadetBlue));
+            ColorCollection.Add(new ColorsServices( "Gray", Brushes.Gray));
+            ColorCollection.Add(new ColorsServices("LightBlue", Brushes.LightBlue));
+            ColorCollection.Add(new ColorsServices("LightGreen", Brushes.LightGreen));
+            ColorCollection.Add(new ColorsServices("Yellow", Brushes.Yellow));
+            ColorCollection.Add(new ColorsServices("Orange", Brushes.Orange));
+            ColorCollection.Add(new ColorsServices("Coral", Brushes.Coral));
+            ColorCollection.Add(new ColorsServices("PaleVioletRed", Brushes.PaleVioletRed));
+            ColorCollection.Add(new ColorsServices("SandyBrown", Brushes.SandyBrown));
         }
-
-        public ObservableCollection<ColorsServices> ColorList
-        {
-            get { return ColorCollection; }
-            set { ColorCollection = value; }
-        }
-
-        System.Windows.Media.Brush color1 = System.Windows.Media.Brushes.Silver;
-        System.Windows.Media.Brush color2 = System.Windows.Media.Brushes.Lime;
-        System.Windows.Media.Brush color3 = System.Windows.Media.Brushes.Tomato;
-        
+                        
         public MainWindow()
         {
             InitializeComponent();
@@ -73,7 +79,9 @@ namespace TasksListWpfApp
             //ObjectiveList.ItemsSource = taskList;
             ObjectiveList.ItemsSource = ITEMS;
             GetColorId();
-            SelectColor1.ItemsSource = ColorList;
+            SelectColor1.ItemsSource = ColorCollection;
+            SelectColor2.ItemsSource = ColorCollection;
+            SelectColor3.ItemsSource = colorSet;
         }
 
         private void Creating_Click(object sender, RoutedEventArgs e)
@@ -113,7 +121,7 @@ namespace TasksListWpfApp
         {
             ExitWindow exit = new ExitWindow();
             if (exit.ShowDialog() == true) this.Close();
-        }
+        } 
 
         private void Create_importance_tables_Click(object sender, RoutedEventArgs e)
         {
@@ -126,8 +134,11 @@ namespace TasksListWpfApp
         private void SaveColor_Click(object sender, RoutedEventArgs e)
         {
             if (TableImportance1.IsChecked == true) color1 = (SelectColor1.SelectedItem as ColorsServices).Fond;
-            //if (TableImportance2.IsChecked == true) color2 = (SelectColor2.SelectedItem as ColorsServices).Fond;
+            if (TableImportance2.IsChecked == true) color2 = (SelectColor2.SelectedItem as ColorsServices).Fond;
             //if (TableImportance3.IsChecked == true) color3 = (SelectColor3.SelectedItem as ColorsServices).Fond;
+            //Что-то не так не работает
+            if (TableImportance3.IsChecked == true) color3 = (SelectColor3.SelectedItem as Dictionary<string, Brush>)["Gray"];
+
 
             RadioButton_Importance1.Background = color1;
             RadioButton_Importance2.Background = color2;

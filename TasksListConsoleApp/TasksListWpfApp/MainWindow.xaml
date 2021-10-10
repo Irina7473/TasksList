@@ -55,14 +55,14 @@
                                 <CheckBox x:Name="TableImportance1" IsChecked="False" Content="Не очень важно" Style="{DynamicResource style_CheckBox}"/>
                             <ComboBox Name="SelectColor1" Style="{DynamicResource style_ComboBox}">
                                     <ComboBox.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type local:ColorsServices}" >
+                                    <DataTemplate DataType="ColorsServices" >
                                         <DockPanel LastChildFill="True" >
                                             <Ellipse Height="20" Width="20" VerticalAlignment="Center" DockPanel.Dock="Left">
                                                 <Ellipse.Fill>
-                                                    <SolidColorBrush Color="{Binding NameColor}"/>
+                                                    <SolidColorBrush Color="{Binding Name}"/>
                                                 </Ellipse.Fill>
                                             </Ellipse>
-                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5"  Background="{Binding Fond}"/>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5"/>
                                         </DockPanel>    
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
@@ -70,23 +70,38 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox x:Name="TableImportance2" IsChecked="False" Content="Важно" Style="{DynamicResource style_CheckBox}"/>
-                                <ComboBox x:Name="SelectColor2" Style="{DynamicResource style_ComboBox}">
-                                    <TextBlock Text="LightSkyBlue" Background="LightSkyBlue" Style="{DynamicResource style_TextBlock}"/>
-
-                                    <Button x:Name="LightBlue" Background="LightBlue"  Style="{DynamicResource style_Button_Color}" />
-                                    <Button x:Name="SpringGreen" Background="SpringGreen"  Style="{DynamicResource style_Button_Color}" />
-                                    <Button x:Name="LightGreen" Background="LightGreen"  Style="{DynamicResource style_Button_Color}" />
-                                    <Button x:Name="Orange" Background="Orange"  Style="{DynamicResource style_Button_Color}" />
-                                    <Button x:Name="Yellow" Background="Yellow"  Style="{DynamicResource style_Button_Color}" />
-                                    <Button x:Name="PaleVioletRed" Background="PaleVioletRed"   Style="{DynamicResource style_Button_Color}" />
-                                    <Button x:Name="Coral" Background="Coral"  Style="{DynamicResource style_Button_Color}" />
-                                </ComboBox>
-                            </StackPanel>
+                            <ComboBox Name="SelectColor2" Style="{DynamicResource style_ComboBox}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="ColorsServices" >
+                                        <DockPanel LastChildFill="True" >
+                                            <Ellipse Height="20" Width="20" VerticalAlignment="Center" DockPanel.Dock="Left">
+                                                <Ellipse.Fill>
+                                                    <SolidColorBrush Color="{Binding Name}"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Style="{DynamicResource style_CheckBox}" />
-                                <ComboBox x:Name="SelectColor3" Style="{DynamicResource style_ComboBox}">                                    
-                                </ComboBox>
-                            </StackPanel>                            
+                            <ComboBox Name="SelectColor3" Style="{DynamicResource style_ComboBox}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="Dictionary" >
+                                        <DockPanel LastChildFill="True" >
+                                            <Ellipse Height="20" Width="20" VerticalAlignment="Center" DockPanel.Dock="Left">
+                                                <Ellipse.Fill>
+                                                    <SolidColorBrush Color="{Binding Key}"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <TextBlock Text="{Binding Key}" VerticalAlignment="Center" Margin="5"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>                            
                     </StackPanel>
                 </Grid>
                 <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" Background="CornflowerBlue"
