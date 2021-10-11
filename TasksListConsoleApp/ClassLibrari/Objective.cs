@@ -12,6 +12,7 @@ namespace ClassLibrari
     {
         public static Message Info;
         public static event Update Creat = () => { /*Info?.Invoke("Задача создана");*/ };
+
         public int Importance { get; set; }
         public string TaskContent { get; set; }
         public string Limit { get; set; }
@@ -23,6 +24,18 @@ namespace ClassLibrari
             TaskContent = taskContent;
             Limit = limit;
             Creat();
-        }      
+        }
+
+        public static bool operator ==(Objective left, Objective rigt)
+        {
+            if (left.Importance == rigt.Importance && left.TaskContent == rigt.TaskContent && left.Limit == rigt.Limit) return true;
+            else return false;
+        }
+
+        public static bool operator !=(Objective left, Objective rigt)
+        {
+            if (left == rigt) return false;
+            else return true;
+        }
     }        
 }

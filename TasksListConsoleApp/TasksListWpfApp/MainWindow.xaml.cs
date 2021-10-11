@@ -192,6 +192,17 @@ namespace TasksListWpfApp
             RadioButton_Importance3.IsChecked = false;
         }
 
+        private void ObjectiveList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var task = ((ObjectiveList.SelectedItem as ListViewItem).Content as Objective);            
+            var action = new ChangingеTasksWindow();
+            if (action.ShowDialog() == true)
+            {                
+                level[task.Importance].RemoveTask(ref task);  //ЗДЕСЬ НЕ РАБОТАЕТ
+                UpdateObjectiveList();
+            }
+        }
+
         private void UpdateObjectiveList()
         {
             ITEMS = new List<ListViewItem>();
@@ -216,6 +227,6 @@ namespace TasksListWpfApp
                 ObjectiveList.Items.Refresh();
             }
             MessageBox.Show("Список обновлен");
-        }
+        }       
     }
 }
