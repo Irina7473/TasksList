@@ -25,7 +25,7 @@ namespace TasksListWpfApp
 
     public partial class MainWindow : Window
     {
-        //public ObservableCollection<Objective> taskList;
+        //Не годится public ObservableCollection<Objective>, т.к. не дает возможность раскрасить строки каждую в свой цвет
         List<ListViewItem> ITEMS = new List<ListViewItem>();
         Dictionary<int, ImportanceTable> level;
 
@@ -37,18 +37,7 @@ namespace TasksListWpfApp
         Brush color2 = Brushes.Lime;
         Brush color3 = Brushes.Tomato;
 
-        Dictionary<string, Brush> colorSet = new Dictionary<string, Brush>
-        {
-            {"Gray",Brushes.Gray },
-            {"LightBlue",Brushes.LightBlue },
-            {"LightGreen",Brushes.LightGreen },
-            {"Yellow",Brushes.Yellow },
-            {"Orange",Brushes.Orange },
-            {"Coral",Brushes.Coral },
-            {"PaleVioletRed",Brushes.PaleVioletRed },
-            {"SandyBrown",Brushes.SandyBrown }
-        };
-
+        //Вариант с моей коллекцией типа ColorsServices для задания фона по уровню важности задачи
         private ObservableCollection<ColorsServices> ColorCollection = new ObservableCollection<ColorsServices>();
         public void GetColorId()
         {
@@ -61,7 +50,20 @@ namespace TasksListWpfApp
             ColorCollection.Add(new ColorsServices("PaleVioletRed", Brushes.PaleVioletRed));
             ColorCollection.Add(new ColorsServices("SandyBrown", Brushes.SandyBrown));
         }
-                        
+
+        //Вариант с коллекцией типа Dictionary для задания фона по уровню важности задачи
+        readonly Dictionary<string, Brush> colorSet = new Dictionary<string, Brush>
+        {
+            {"Gray",Brushes.Gray },
+            {"LightBlue",Brushes.LightBlue },
+            {"LightGreen",Brushes.LightGreen },
+            {"Yellow",Brushes.Yellow },
+            {"Orange",Brushes.Orange },
+            {"Coral",Brushes.Coral },
+            {"PaleVioletRed",Brushes.PaleVioletRed },
+            {"SandyBrown",Brushes.SandyBrown }
+        };
+
         public MainWindow()
         {
             InitializeComponent();
@@ -74,9 +76,7 @@ namespace TasksListWpfApp
             RadioButton_Importance1.Background = color1;
             RadioButton_Importance2.Background = color2;
             RadioButton_Importance3.Background = color3;
-
-            //taskList = new ObservableCollection<Objective> ();
-            //ObjectiveList.ItemsSource = taskList;
+                        
             ObjectiveList.ItemsSource = ITEMS;
             GetColorId();
             SelectColor1.ItemsSource = ColorCollection;
@@ -133,12 +133,11 @@ namespace TasksListWpfApp
 
         private void SaveColor_Click(object sender, RoutedEventArgs e)
         {
+            //Вариант с моей коллекцией типа ColorsServices
             if (TableImportance1.IsChecked == true) color1 = (SelectColor1.SelectedItem as ColorsServices).Fond;
             if (TableImportance2.IsChecked == true) color2 = (SelectColor2.SelectedItem as ColorsServices).Fond;
-            //if (TableImportance3.IsChecked == true) color3 = (SelectColor3.SelectedItem as ColorsServices).Fond;
-            //Что-то не так не работает
-            if (TableImportance3.IsChecked == true) color3 = (SelectColor3.SelectedItem as Dictionary<string, Brush>)["Gray"];
-
+            //Вариант с коллекцией типа Dictionary
+            if (TableImportance3.IsChecked == true) color3 = colorSet[SelectColor3.SelectedValue.ToString().Substring(1, SelectColor3.SelectedValue.ToString().IndexOf(",") - 1)];
 
             RadioButton_Importance1.Background = color1;
             RadioButton_Importance2.Background = color2;

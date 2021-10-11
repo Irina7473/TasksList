@@ -12,12 +12,12 @@ namespace TasksListWpfApp
     public class ColorsServices
     {
         public ColorsServices() { }
-        public ColorsServices(string name, System.Windows.Media.Brush fond)
+        public ColorsServices(string name, Brush fond)
         {            
             Name = name;
             Fond = fond;      
         }         
         public string Name { get; set; }
-        public System.Windows.Media.Brush Fond { get; set; }       
+        public Brush Fond { get; set; }       
     }
 }
