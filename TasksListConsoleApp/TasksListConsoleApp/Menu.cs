@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using ClassLibrari;
+using System.Drawing;
 
 namespace TasksListConsoleApp
 {
@@ -67,9 +69,9 @@ namespace TasksListConsoleApp
         public static void CreatTaskList()
         {
             level = new Dictionary<int, ImportanceTable>(numberLevel);
-            level.Add (3, new ImportanceTable(new Queue<Objective>(), 3, ConsoleColor.Yellow));
-            level.Add (2, new ImportanceTable(new Queue<Objective>(), 2, ConsoleColor.Blue));
-            level.Add (1, new ImportanceTable(new Queue<Objective>(), 1, ConsoleColor.Magenta));
+            level.Add (3, new ImportanceTable(new Queue<Objective>(), 3, Color.Yellow));
+            level.Add (2, new ImportanceTable(new Queue<Objective>(), 2, Color.Blue));
+            level.Add (1, new ImportanceTable(new Queue<Objective>(), 1, Color.Magenta));
             var path=SaveToFile.FilePath;
             if (File.Exists(path))
             {

@@ -6,18 +6,23 @@ using System.Threading.Tasks;
 
 namespace ClassLibrari
 {
+    //public delegate void Message(string message);
+    
     public class Objective
     {
+        public static Message Info;
+        public static event Update Creat = () => { /*Info?.Invoke("Задача создана");*/ };
         public int Importance { get; set; }
         public string TaskContent { get; set; }
         public string Limit { get; set; }
 
-        /*
+        public Objective() { }
         public Objective(int importance, string taskContent, string limit)
         {
             Importance = importance;
             TaskContent = taskContent;
             Limit = limit;
-        }    */    
+            Creat();
+        }      
     }        
 }

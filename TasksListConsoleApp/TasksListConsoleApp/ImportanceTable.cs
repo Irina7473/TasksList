@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace TasksListConsoleApp
+namespace ClassLibrari
 {
     public class ImportanceTable
     {
