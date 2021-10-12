@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksListWpfApp", "TasksLis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrari", "ClassLibrari\ClassLibrari.csproj", "{5F7319FF-64D5-400B-8330-1E9AEB6F5E40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{EC6BD6DA-0EF1-45E6-AB2D-043A6D5FB131}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5F7319FF-64D5-400B-8330-1E9AEB6F5E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F7319FF-64D5-400B-8330-1E9AEB6F5E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F7319FF-64D5-400B-8330-1E9AEB6F5E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6BD6DA-0EF1-45E6-AB2D-043A6D5FB131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6BD6DA-0EF1-45E6-AB2D-043A6D5FB131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6BD6DA-0EF1-45E6-AB2D-043A6D5FB131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6BD6DA-0EF1-45E6-AB2D-043A6D5FB131}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

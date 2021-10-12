@@ -198,7 +198,7 @@ namespace TasksListWpfApp
             var action = new ChangingеTasksWindow();
             if (action.ShowDialog() == true)
             {                
-                level[task.Importance].RemoveTask(ref task);  //ЗДЕСЬ НЕ РАБОТАЕТ
+                level[task.Importance].RemoveTask(ref task);
                 UpdateObjectiveList();
             }
         }

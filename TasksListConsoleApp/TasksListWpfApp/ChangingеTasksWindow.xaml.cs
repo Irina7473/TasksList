@@ -32,7 +32,8 @@ namespace TasksListWpfApp
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            
+            //this.DialogResult = true;
+            MessageBox.Show("Change");
         }
     }
 }

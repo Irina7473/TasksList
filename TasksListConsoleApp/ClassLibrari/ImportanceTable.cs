@@ -45,7 +45,12 @@ namespace ClassLibrari
 
         public void RemoveTask(ref Objective task)
         {
-            AnyLevel.Remove(task);
+            foreach (var t in AnyLevel)
+                if (t == task)
+                {
+                    AnyLevel.Remove(t);
+                    return;
+                }
             Del();
         }
     }
