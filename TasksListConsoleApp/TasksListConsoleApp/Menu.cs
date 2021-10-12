@@ -68,10 +68,13 @@ namespace TasksListConsoleApp
 
         public static void CreatTaskList()
         {
-            level = new Dictionary<int, ImportanceTable>(numberLevel);
-            level.Add (3, new ImportanceTable(new Queue<Objective>(), 3, Color.Yellow));
-            level.Add (2, new ImportanceTable(new Queue<Objective>(), 2, Color.Blue));
-            level.Add (1, new ImportanceTable(new Queue<Objective>(), 1, Color.Magenta));
+            level = new Dictionary<int, ImportanceTable>(numberLevel)
+            {
+                { 3, new ImportanceTable(new List<Objective>(), 3, Color.Yellow) },
+                { 2, new ImportanceTable(new List<Objective>(), 2, Color.Blue) },
+                { 1, new ImportanceTable(new List<Objective>(), 1, Color.Magenta) }
+            };
+
             var path=SaveToFile.FilePath;
             if (File.Exists(path))
             {
@@ -100,7 +103,7 @@ namespace TasksListConsoleApp
                     task.TaskContent = elements[1];
                     task.Limit = elements[2];
                     task.Importance = int.Parse(elements[0])+1;*/
-                    level[task.Importance].AnyLevel.Enqueue(task);
+                    level[task.Importance].AddTask(task);
                 }
                 reader.Close();
             } 
@@ -110,7 +113,7 @@ namespace TasksListConsoleApp
         {
             if (level.Count == 0) CreatTaskList();
             var task = AddObjective();
-            level[task.Importance].AnyLevel.Enqueue(task);
+            level[task.Importance].AddTask(task);
             Console.WriteLine("  Добавить еще 1 задачу?\n  1 - да  \n  2 - нет");
             var select = Console.ReadLine();
             if (select.Contains("1"))

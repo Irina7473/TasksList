@@ -77,7 +77,7 @@
                               HorizontalAlignment="Center" VerticalAlignment="Stretch" />
                 <StackPanel Grid.Column="2" >
                     <Label Content="Готовый список задач" Height="30" Width="200" FontSize="15"/>
-                    <ListView Name="ObjectiveList" MouseDoubleClick="ObjectiveList_MouseDoubleClick">
+                    <ListView Name="ObjectiveList">
                         <ListView.View >
                             <GridView >
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Importance}" Width="20">!</GridViewColumn>
@@ -85,6 +85,12 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Limit}" Width="130">Срок</GridViewColumn>
                             </GridView>
                         </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Изменить" Click="MenuItem_Click_Change"></MenuItem>                                
+                                <MenuItem Header="Удалить" Click="MenuItem_Click_Delete"></MenuItem>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
                     </ListView>
                 </StackPanel>                    
             </Grid>
@@ -95,6 +101,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="Create_importance_tables" Content="Создать свою таблицу важности" Click="Create_importance_tables_Click" Width="300" Height="30" Margin="10" Background="LightSteelBlue"/>
                     <Button x:Name="SaveColor" Content="Сохранить выбор" Click="SaveColor_Click" Style="{DynamicResource style_Button}"/>
+                    <Button x:Name="ChangeColor" Content="Обновить список" Click="ChangeColor_Click"  Style="{DynamicResource style_Button}"/>
                 </StackPanel>
                 <Label Content="Выберите цвет для каждого уровня важности"  />
                 <StackPanel Orientation="Horizontal">

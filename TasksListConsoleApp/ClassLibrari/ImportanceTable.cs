@@ -43,7 +43,7 @@ namespace ClassLibrari
             Add();          
         }
 
-        public void RemoveTask(ref Objective task)
+        public void RemoveTask(Objective task)
         {
             foreach (var t in AnyLevel)
                 if (t == task)
