@@ -53,7 +53,25 @@
             </MultiDataTrigger>
         </Style.Triggers>        
         <Setter Property="Width" Value="30" />
-        <Setter Property="Height" Value="5" />        
+        <Setter Property="Height" Value="5" />
+        <Setter Property="Margin" Value="20" />
+    </Style>
+
+    <Style x:Key="style_Button_dialog" TargetType="Button">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=input_Name, Path=Text}" Value="" />
+                    <Condition Binding="{Binding ElementName=input_Age, Path=Text}" Value="" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="IsEnabled" Value="False" />
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+        <Setter Property="Width" Value="70" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Margin" Value="10" />
     </Style>
 
     <Style x:Key="style_CheckBox" TargetType="CheckBox">

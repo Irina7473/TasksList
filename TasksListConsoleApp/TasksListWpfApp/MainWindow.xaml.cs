@@ -33,7 +33,7 @@ namespace TasksListWpfApp
         string taskContent = "";
         string limit = "";
 
-        Brush color1 = Brushes.Silver;
+        Brush color1 = Brushes.Gray;
         Brush color2 = Brushes.Lime;
         Brush color3 = Brushes.Tomato;
 
@@ -44,9 +44,11 @@ namespace TasksListWpfApp
             ColorCollection.Add(new ColorsServices( "Gray", Brushes.Gray));
             ColorCollection.Add(new ColorsServices("LightBlue", Brushes.LightBlue));
             ColorCollection.Add(new ColorsServices("LightGreen", Brushes.LightGreen));
+            ColorCollection.Add(new ColorsServices("Lime", Brushes.Lime));
             ColorCollection.Add(new ColorsServices("Yellow", Brushes.Yellow));
             ColorCollection.Add(new ColorsServices("Orange", Brushes.Orange));
             ColorCollection.Add(new ColorsServices("Coral", Brushes.Coral));
+            ColorCollection.Add(new ColorsServices("Tomato", Brushes.Tomato));
             ColorCollection.Add(new ColorsServices("PaleVioletRed", Brushes.PaleVioletRed));
             ColorCollection.Add(new ColorsServices("SandyBrown", Brushes.SandyBrown));
         }
@@ -57,9 +59,11 @@ namespace TasksListWpfApp
             {"Gray",Brushes.Gray },
             {"LightBlue",Brushes.LightBlue },
             {"LightGreen",Brushes.LightGreen },
+            {"Lime",Brushes.Lime },
             {"Yellow",Brushes.Yellow },
             {"Orange",Brushes.Orange },
             {"Coral",Brushes.Coral },
+            {"Tomato",Brushes.Tomato },
             {"PaleVioletRed",Brushes.PaleVioletRed },
             {"SandyBrown",Brushes.SandyBrown }
         };
@@ -73,6 +77,7 @@ namespace TasksListWpfApp
             TableImportance3.IsEnabled = false;
             SaveColor.IsEnabled = false;
             SaveTask.IsEnabled = false;
+            ChangeColor.IsEnabled = false;
             RadioButton_Importance1.Background = color1;
             RadioButton_Importance2.Background = color2;
             RadioButton_Importance3.Background = color3;
@@ -123,35 +128,6 @@ namespace TasksListWpfApp
             if (exit.ShowDialog() == true) this.Close();
         } 
 
-        private void Create_importance_tables_Click(object sender, RoutedEventArgs e)
-        {
-            TableImportance1.IsEnabled = true;
-            TableImportance2.IsEnabled = true;
-            TableImportance3.IsEnabled = true;
-            SaveColor.IsEnabled = true;
-        }
-
-        private void SaveColor_Click(object sender, RoutedEventArgs e)
-        {
-            //Вариант с моей коллекцией типа ColorsServices
-            if (TableImportance1.IsChecked == true) color1 = (SelectColor1.SelectedItem as ColorsServices).Fond;
-            if (TableImportance2.IsChecked == true) color2 = (SelectColor2.SelectedItem as ColorsServices).Fond;
-            //Вариант с коллекцией типа Dictionary
-            if (TableImportance3.IsChecked == true) color3 = colorSet[SelectColor3.SelectedValue.ToString().Substring(1, SelectColor3.SelectedValue.ToString().IndexOf(",") - 1)];
-
-            RadioButton_Importance1.Background = color1;
-            RadioButton_Importance2.Background = color2;
-            RadioButton_Importance3.Background = color3;
-
-            TableImportance1.IsChecked = false;
-            TableImportance2.IsChecked = false;
-            TableImportance3.IsChecked = false;
-            TableImportance1.IsEnabled = false;
-            TableImportance2.IsEnabled = false;
-            TableImportance3.IsEnabled = false;
-            SaveColor.IsEnabled = false;
-        }
-
         private void Importance_RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton pressed = (RadioButton)sender;
@@ -191,6 +167,29 @@ namespace TasksListWpfApp
             RadioButton_Importance2.IsChecked = false;
             RadioButton_Importance3.IsChecked = false;
         }
+        
+        private void MenuItem_Click_Change(object sender, RoutedEventArgs e)
+        {
+            var task = (ObjectiveList.SelectedItem as ListViewItem).Content as Objective;
+
+            importance = task.Importance;
+            if (importance == 1) RadioButton_Importance1.IsChecked = true;
+            if (importance == 2) RadioButton_Importance2.IsChecked = true;
+            if (importance == 3) RadioButton_Importance3.IsChecked = true;
+
+            TextBox_TaskContent.Text = task.TaskContent;
+            TextBox_Limit.Text = task.Limit;
+
+            SaveTask.IsEnabled = true;
+            level[task.Importance].RemoveTask(task);
+        }
+
+        private void MenuItem_Click_Delete(object sender, RoutedEventArgs e)
+        {
+            var task = (ObjectiveList.SelectedItem as ListViewItem).Content as Objective;
+            level[task.Importance].RemoveTask(task);            
+            UpdateObjectiveList();
+        }
 
         private void UpdateObjectiveList()
         {
@@ -216,6 +215,46 @@ namespace TasksListWpfApp
                 ObjectiveList.Items.Refresh();
             }
             MessageBox.Show("Список обновлен");
+        }
+
+        private void Create_importance_tables_Click(object sender, RoutedEventArgs e)
+        {
+            TableImportance1.IsEnabled = true;
+            TableImportance2.IsEnabled = true;
+            TableImportance3.IsEnabled = true;
+            SaveColor.IsEnabled = true;
+        }
+
+        private void SaveColor_Click(object sender, RoutedEventArgs e)
+        {
+            //Вариант с моей коллекцией типа ColorsServices
+            if (TableImportance1.IsChecked == true) color1 = (SelectColor1.SelectedItem as ColorsServices).Fond;
+            if (TableImportance2.IsChecked == true) color2 = (SelectColor2.SelectedItem as ColorsServices).Fond;
+            //Вариант с коллекцией типа Dictionary
+            if (TableImportance3.IsChecked == true) color3 = colorSet[SelectColor3.SelectedValue.ToString().Substring(1, SelectColor3.SelectedValue.ToString().IndexOf(",") - 1)];
+
+            RadioButton_Importance1.Background = color1;
+            RadioButton_Importance2.Background = color2;
+            RadioButton_Importance3.Background = color3;
+
+            ChangeColor.IsEnabled = true;
+            SelectColor1.SelectedItem=null;
+            SelectColor2.SelectedItem = null;
+            SelectColor3.SelectedItem = null;
+            TableImportance1.IsChecked = false;
+            TableImportance2.IsChecked = false;
+            TableImportance3.IsChecked = false;
+            TableImportance1.IsEnabled = false;
+            TableImportance2.IsEnabled = false;
+            TableImportance3.IsEnabled = false;
+            
+            SaveColor.IsEnabled = false;
+        }
+
+        private void ChangeColor_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateObjectiveList();
+            ChangeColor.IsEnabled = false;
         }
     }
 }
