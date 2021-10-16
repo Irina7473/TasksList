@@ -18,6 +18,15 @@
         <Setter Property="Width" Value="150" />
         <Setter Property="Height" Value="30" />
         <Setter Property="Margin" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="Border" Background="LightSteelBlue"   CornerRadius="10" BorderThickness="1" Padding="2">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="style_Button_Action" TargetType="Button">

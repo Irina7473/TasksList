@@ -75,7 +75,6 @@
         </Setter>        
     </Style>
 
-
     <Style x:Key="style_TextBlock" TargetType="TextBlock">
         <Style.Triggers>
             <MultiDataTrigger>
