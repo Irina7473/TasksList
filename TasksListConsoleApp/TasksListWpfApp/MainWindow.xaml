@@ -63,8 +63,10 @@
                             <Label Content="Заполните текст задачи" DockPanel.Dock="Top" />
                             <WrapPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
                                 <Button x:Name="SaveTask" Content="Записать задачу" Click="SaveTask_Click" Style="{DynamicResource style_Button}"/>
+                                <Button x:Name="ChangeTask" Content="Изменить задачу" Click="ChangeTask_Click"  Style="{DynamicResource style_Button}"/>
                                 <Button x:Name="СlearForm" Content="Очистить форму" Click="СlearForm_Click"  Style="{DynamicResource style_Button}"/>
-                            </WrapPanel>
+
+                        </WrapPanel>
                             <TextBox Name="TextBox_Limit" DockPanel.Dock="Bottom" TextChanged="Limit_TextChanged"
                                 Height="20" FontSize="15" TextWrapping="Wrap" />
                             <Label Content="Заполните срок выполнения задачи" DockPanel.Dock="Bottom"/>
@@ -139,17 +141,17 @@
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Style="{DynamicResource style_CheckBox}" />
+                    <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Важно" Style="{DynamicResource style_CheckBox}"/>
                     <ComboBox Name="SelectColor3" Style="{DynamicResource style_ComboBox}">
                         <ComboBox.ItemTemplate>
-                            <DataTemplate DataType="Dictionary" >
+                            <DataTemplate DataType="ColorsServices" >
                                 <DockPanel LastChildFill="True" >
                                     <Ellipse Height="20" Width="20" VerticalAlignment="Center" DockPanel.Dock="Left">
                                         <Ellipse.Fill>
-                                            <SolidColorBrush Color="{Binding Key}"/>
+                                            <SolidColorBrush Color="{Binding Name}"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
-                                    <TextBlock Text="{Binding Key}" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5"/>
                                 </DockPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
