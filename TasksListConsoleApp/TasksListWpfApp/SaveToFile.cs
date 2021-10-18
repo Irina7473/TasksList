@@ -33,7 +33,7 @@ namespace TasksListWpfApp
                         }
                     }
                 }
-                Info?.Invoke("Список задач записан в файл");
+                //Info?.Invoke("Список задач записан в файл");
             }
         }
         
@@ -53,7 +53,7 @@ namespace TasksListWpfApp
                         level[Int32.Parse(taskfeld[0])].AddTask(task);
                     }
                 }
-                Info?.Invoke("Список задач загружен из файла");                
+                //Info?.Invoke("Список задач загружен из файла");                
                 return level;
             }
             else

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TasksListWpfApp"
         mc:Ignorable="d"
-        Title="******** Список задач! ********" Height="600" Width="1000" Background="CornflowerBlue">
+        Title="******** Список задач! ********" Height="600" Width="1200" Background="CornflowerBlue">
     <Window.Resources>
         <ResourceDictionary Source="Style.xaml"/>
     </Window.Resources>
@@ -16,20 +16,19 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+
+                <!-- Левая панель -->
                 <Grid Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    </Grid>
-                    <Grid Grid.Row="0" Margin="0,0,0,10">
+
+                    <!-- Верх -->
+                    <Grid Grid.Row="0">
                         <WrapPanel Orientation="Horizontal">
                             <Button x:Name="Creating" Click="Creating_Click"  Style="{DynamicResource style_Button_Action}" >
                                 <TextBlock Text="Создание нового списка задач" TextWrapping="Wrap" TextAlignment="Center"/>
@@ -43,65 +42,78 @@
                             <Button x:Name="Discharge" Click="Discharge_Click"  Style="{DynamicResource style_Button_Action}">
                                 <TextBlock Text="Запись списка задач в текстовый файл" TextWrapping="Wrap" TextAlignment="Center"/>
                             </Button>
-                            <Button x:Name="Exit" Click="Exit_Click"  Width="300" Margin="60,20,0,0" Background="Coral">
-                                <TextBlock Text="Выйти из программы" TextWrapping="Wrap" TextAlignment="Center"/>
-                            </Button>
                         </WrapPanel>
+                        <Button x:Name="Exit" Content="Выйти из программы" Click="Exit_Click"  Style="{DynamicResource style_Button_Exit}">                            
+                        </Button>
                     </Grid>
-                
+
+                    <!-- Разделитель -->
                     <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" Background="CornflowerBlue"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-                
-                    <Grid Grid.Row="2" Margin="0,10,0,0">
-                        <DockPanel VerticalAlignment="Bottom">
-                            <Label Content="Выберите степень важности задачи" DockPanel.Dock="Top"/>
-                            <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-                                <RadioButton x:Name="RadioButton_Importance1" GroupName="Importance" Content="Не очень важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10" />
-                                <RadioButton x:Name="RadioButton_Importance2" GroupName="Importance" Content="Важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
-                                <RadioButton x:Name="RadioButton_Importance3" GroupName="Importance" Content="Очень важно" Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
-                            </WrapPanel>
-                            <Label Content="Заполните текст задачи" DockPanel.Dock="Top" />
-                            <WrapPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
-                                <Button x:Name="SaveTask" Content="Записать задачу" Click="SaveTask_Click" Style="{DynamicResource style_Button}"/>
-                                <Button x:Name="ChangeTask" Content="Изменить задачу" Click="ChangeTask_Click"  Style="{DynamicResource style_Button}"/>
-                                <Button x:Name="СlearForm" Content="Очистить форму" Click="СlearForm_Click"  Style="{DynamicResource style_Button}"/>
 
+                    <!-- Низ -->
+                    <DockPanel Grid.Row="2">
+                        <Label DockPanel.Dock="Top" Content="Выберите степень важности задачи" />
+                        <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
+                            <RadioButton x:Name="RadioButton_Importance1" GroupName="Importance" Content="Не очень важно" 
+                                             Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10" />
+                            <RadioButton x:Name="RadioButton_Importance2" GroupName="Importance" Content="Важно" 
+                                             Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
+                            <RadioButton x:Name="RadioButton_Importance3" GroupName="Importance" Content="Очень важно" 
+                                             Checked="Importance_RadioButton_Checked" FontSize="15" Margin="10"/>
                         </WrapPanel>
-                            <TextBox Name="TextBox_Limit" DockPanel.Dock="Bottom" TextChanged="Limit_TextChanged"
-                                Height="20" FontSize="15" TextWrapping="Wrap" />
-                            <Label Content="Заполните срок выполнения задачи" DockPanel.Dock="Bottom"/>
-                            <TextBox Name="TextBox_TaskContent" Height="50" FontSize="15" TextWrapping="Wrap" TextChanged="TaskContent_TextChanged"/>
-                        </DockPanel>
+                        <Label DockPanel.Dock="Top" Content="Заполните текст задачи" />
+                        <WrapPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Margin="20">
+                            <Button x:Name="SaveTask" Content="Записать задачу" Click="SaveTask_Click" Style="{DynamicResource style_Button}"/>
+                            <Button x:Name="ChangeTask" Content="Изменить задачу" Click="ChangeTask_Click"  Style="{DynamicResource style_Button}"/>
+                            <Button x:Name="СlearForm" Content="Очистить форму" Click="СlearForm_Click"  Style="{DynamicResource style_Button}"/>
+                        </WrapPanel>
+                        <TextBox DockPanel.Dock="Bottom" Name="TextBox_Limit" TextChanged="Limit_TextChanged" Height="30" FontSize="15" TextWrapping="Wrap" />
+                        <Label DockPanel.Dock="Bottom" Content="Заполните срок выполнения задачи" />
+                        <TextBox Name="TextBox_TaskContent" FontSize="15" TextWrapping="Wrap" TextChanged="TaskContent_TextChanged"/>
+                    </DockPanel>
                 </Grid>
 
-
+                <!-- Разделитель -->
                 <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" Background="CornflowerBlue"
                               HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-                <StackPanel Grid.Column="2" >
-                    <Label Content="Готовый список задач" Height="30" Width="200" FontSize="15"/>
+
+                <!-- Правая панель -->
+                <StackPanel Grid.Column="2">
+                    <Label Content="Готовый список задач" Height="30" FontSize="15" HorizontalAlignment="Center"/>
                     <ListView Name="ObjectiveList">
                         <ListView.View >
                             <GridView >
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Importance}" Width="20">!</GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=TaskContent}" Width="350">Задача</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=TaskContent}" Width="450">Задача</GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Limit}" Width="130">Срок</GridViewColumn>
                             </GridView>
                         </ListView.View>
                         <ListView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Изменить" Click="MenuItem_Click_Change"></MenuItem>                                
+                                <MenuItem Header="Изменить" Click="MenuItem_Click_Change"></MenuItem>
                                 <MenuItem Header="Удалить" Click="MenuItem_Click_Delete"></MenuItem>
                             </ContextMenu>
                         </ListView.ContextMenu>
                     </ListView>
-                </StackPanel>                    
+                </StackPanel>
+
+                <StatusBar Name="sbar" VerticalAlignment="Bottom"  Background="LightBlue" >
+                    <StatusBarItem>
+                        <TextBlock Text="Состояние"/>
+                    </StatusBarItem>
+                    <Separator/>
+                    <StatusBarItem >
+                        <TextBlock x:Name="State" />
+                    </StatusBarItem>
+                </StatusBar>
             </Grid>
         </TabItem>
-        
+
         <TabItem Header="Таблица важности" FontSize="15" Background="LightBlue">
             <StackPanel Margin="0,10,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="Create_importance_tables" Content="Создать свою таблицу важности" Click="Create_importance_tables_Click" Width="300" Height="30" Margin="10" Background="LightSteelBlue"/>
+                    <Button x:Name="Create_importance_tables" Content="Создать свою таблицу важности" Click="Create_importance_tables_Click" Width="300" Style="{DynamicResource style_Button}"/>
                     <Button x:Name="SaveColor" Content="Сохранить выбор" Click="SaveColor_Click" Style="{DynamicResource style_Button}"/>
                     <Button x:Name="ChangeColor" Content="Обновить список" Click="ChangeColor_Click"  Style="{DynamicResource style_Button}"/>
                 </StackPanel>
@@ -159,6 +171,5 @@
                 </StackPanel>
             </StackPanel>
         </TabItem>
-
     </TabControl>
 </Window>
