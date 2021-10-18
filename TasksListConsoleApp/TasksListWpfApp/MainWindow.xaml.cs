@@ -32,41 +32,13 @@ namespace TasksListWpfApp
         int importance = 0;
         string taskContent = "";
         string limit = "";
+        Objective changeTask = new Objective();
 
         Brush color1 = Brushes.Gray;
         Brush color2 = Brushes.Lime;
         Brush color3 = Brushes.Tomato;
 
-        //Вариант с моей коллекцией типа ColorsServices для задания фона по уровню важности задачи
-        private ObservableCollection<ColorsServices> ColorCollection = new ObservableCollection<ColorsServices>();
-        public void GetColorId()
-        {
-            ColorCollection.Add(new ColorsServices( "Gray", Brushes.Gray));
-            ColorCollection.Add(new ColorsServices("LightBlue", Brushes.LightBlue));
-            ColorCollection.Add(new ColorsServices("LightGreen", Brushes.LightGreen));
-            ColorCollection.Add(new ColorsServices("Lime", Brushes.Lime));
-            ColorCollection.Add(new ColorsServices("Yellow", Brushes.Yellow));
-            ColorCollection.Add(new ColorsServices("Orange", Brushes.Orange));
-            ColorCollection.Add(new ColorsServices("Coral", Brushes.Coral));
-            ColorCollection.Add(new ColorsServices("Tomato", Brushes.Tomato));
-            ColorCollection.Add(new ColorsServices("PaleVioletRed", Brushes.PaleVioletRed));
-            ColorCollection.Add(new ColorsServices("SandyBrown", Brushes.SandyBrown));
-        }
-
-        //Вариант с коллекцией типа Dictionary для задания фона по уровню важности задачи
-        readonly Dictionary<string, Brush> colorSet = new Dictionary<string, Brush>
-        {
-            {"Gray",Brushes.Gray },
-            {"LightBlue",Brushes.LightBlue },
-            {"LightGreen",Brushes.LightGreen },
-            {"Lime",Brushes.Lime },
-            {"Yellow",Brushes.Yellow },
-            {"Orange",Brushes.Orange },
-            {"Coral",Brushes.Coral },
-            {"Tomato",Brushes.Tomato },
-            {"PaleVioletRed",Brushes.PaleVioletRed },
-            {"SandyBrown",Brushes.SandyBrown }
-        };
+        ObservableCollection<ColorsServices> listColors = ListColors.GetColors();        
 
         public MainWindow()
         {
@@ -77,24 +49,26 @@ namespace TasksListWpfApp
             TableImportance3.IsEnabled = false;
             SaveColor.IsEnabled = false;
             SaveTask.IsEnabled = false;
+            ChangeTask.IsEnabled = false;
+            СlearForm.IsEnabled = false;
             ChangeColor.IsEnabled = false;
             RadioButton_Importance1.Background = color1;
             RadioButton_Importance2.Background = color2;
             RadioButton_Importance3.Background = color3;
                         
             ObjectiveList.ItemsSource = ITEMS;
-            GetColorId();
-            SelectColor1.ItemsSource = ColorCollection;
-            SelectColor2.ItemsSource = ColorCollection;
-            SelectColor3.ItemsSource = colorSet;
+            //GetColorId();
+            SelectColor1.ItemsSource = listColors;
+            SelectColor2.ItemsSource = listColors;
+            SelectColor3.ItemsSource = listColors;
         }
 
         private void Creating_Click(object sender, RoutedEventArgs e)
-        {
-            ImportanceTable.Info = msg => MessageBox.Show(msg);
+        {            
             ITEMS.Clear();
             ObjectiveList.Items.Refresh();
             level = ImportanceTable.CreatTaskList();
+            State.Text = "Новый список задач создан";
         }
 
         private void Addendum_Click(object sender, RoutedEventArgs e)
@@ -105,21 +79,25 @@ namespace TasksListWpfApp
                 level = ImportanceTable.CreatTaskList();
             }
             SaveTask.IsEnabled = true;
+            СlearForm.IsEnabled = true;
+            State.Text = "Добавление задач активизировано";
         }
 
         private void Uploading_Click(object sender, RoutedEventArgs e)
-        {
-            //ImportanceTable.Info = msg => MessageBox.Show(msg);
+        {                       
             ITEMS.Clear();
             ObjectiveList.Items.Refresh();
             level = SaveToFile.ReaderFromFail();
             UpdateObjectiveList();
+            State.Text = "Список задач загружен из файла";            
         }
 
         private void Discharge_Click(object sender, RoutedEventArgs e)
         {
             SaveToFile.Info = msg => MessageBox.Show(msg);
-            SaveToFile.RecordToFile(level);
+            SaveToFile.RecordToFile(level);    
+            if(level==null) State.Text = "Список не существует";
+            else State.Text = "Список задач записан в файл";
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -153,9 +131,25 @@ namespace TasksListWpfApp
             {
                 var task = new Objective(importance, taskContent, limit);
                 level[task.Importance].AddTask(task);
-                UpdateObjectiveList();
-                //ImportanceTable.Add += UpdateObjectiveList;
-                //ImportanceTable.Info = msg => MessageBox.Show(msg);
+                UpdateObjectiveList();                
+            }
+        }
+
+        private void ChangeTask_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(var uptask in level[changeTask.Importance].AnyLevel)
+            {
+                if (uptask==changeTask)
+                {
+                    uptask.Importance = importance;
+                    uptask.TaskContent = taskContent;
+                    uptask.Limit = limit;
+                    level[uptask.Importance].AddTask(uptask);
+                    level[changeTask.Importance].RemoveTask(uptask);
+                    UpdateObjectiveList();
+                    State.Text = "Задача изменена";
+                    return;
+                }
             }
         }
 
@@ -170,25 +164,25 @@ namespace TasksListWpfApp
         
         private void MenuItem_Click_Change(object sender, RoutedEventArgs e)
         {
-            var task = (ObjectiveList.SelectedItem as ListViewItem).Content as Objective;
+            changeTask = (ObjectiveList.SelectedItem as ListViewItem).Content as Objective;
 
-            importance = task.Importance;
+            importance = changeTask.Importance;
             if (importance == 1) RadioButton_Importance1.IsChecked = true;
             if (importance == 2) RadioButton_Importance2.IsChecked = true;
             if (importance == 3) RadioButton_Importance3.IsChecked = true;
+            TextBox_TaskContent.Text = changeTask.TaskContent;
+            TextBox_Limit.Text = changeTask.Limit;
 
-            TextBox_TaskContent.Text = task.TaskContent;
-            TextBox_Limit.Text = task.Limit;
-
-            SaveTask.IsEnabled = true;
-            level[task.Importance].RemoveTask(task);
+            ChangeTask.IsEnabled = true;
+            СlearForm.IsEnabled = true;            
         }
 
         private void MenuItem_Click_Delete(object sender, RoutedEventArgs e)
         {
             var task = (ObjectiveList.SelectedItem as ListViewItem).Content as Objective;
-            level[task.Importance].RemoveTask(task);            
+            level[task.Importance].RemoveTask(task);
             UpdateObjectiveList();
+            State.Text = "Задача удалена";
         }
 
         private void UpdateObjectiveList()
@@ -214,7 +208,7 @@ namespace TasksListWpfApp
                 }
                 ObjectiveList.Items.Refresh();
             }
-            MessageBox.Show("Список обновлен");
+            State.Text="Список обновлен";
         }
 
         private void Create_importance_tables_Click(object sender, RoutedEventArgs e)
@@ -230,14 +224,13 @@ namespace TasksListWpfApp
             //Вариант с моей коллекцией типа ColorsServices
             if (TableImportance1.IsChecked == true) color1 = (SelectColor1.SelectedItem as ColorsServices).Fond;
             if (TableImportance2.IsChecked == true) color2 = (SelectColor2.SelectedItem as ColorsServices).Fond;
-            //Вариант с коллекцией типа Dictionary
-            if (TableImportance3.IsChecked == true) color3 = colorSet[SelectColor3.SelectedValue.ToString().Substring(1, SelectColor3.SelectedValue.ToString().IndexOf(",") - 1)];
-
+            if (TableImportance3.IsChecked == true) color3 = (SelectColor3.SelectedItem as ColorsServices).Fond;
+            
             RadioButton_Importance1.Background = color1;
             RadioButton_Importance2.Background = color2;
             RadioButton_Importance3.Background = color3;
 
-            ChangeColor.IsEnabled = true;
+            if (level!=null) ChangeColor.IsEnabled = true;
             SelectColor1.SelectedItem=null;
             SelectColor2.SelectedItem = null;
             SelectColor3.SelectedItem = null;
@@ -250,7 +243,6 @@ namespace TasksListWpfApp
             
             SaveColor.IsEnabled = false;
         }
-
         private void ChangeColor_Click(object sender, RoutedEventArgs e)
         {
             UpdateObjectiveList();

@@ -13,20 +13,7 @@ namespace TasksListWpfApp
     {
         public static Message Info;
         public static string FilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TaskList.txt");
-        /*
-        public static SaveToFile() { }
-        public static SaveToFile(string path)
-        {                        
-            try
-            {
-                FilePath = path;                
-            }
-            catch
-            {
-                throw new Exception("Путь к месту записи файла не найден");
-            }
-        }*/
-
+        
         public static void RecordToFile(Dictionary<int, ImportanceTable> level)
         {
             if (level ==null) Info?.Invoke("Список не существует. Создайте список задач.");
@@ -46,7 +33,7 @@ namespace TasksListWpfApp
                         }
                     }
                 }
-                Info?.Invoke("Список задач записан в файл");
+                //Info?.Invoke("Список задач записан в файл");
             }
         }
         
@@ -66,7 +53,7 @@ namespace TasksListWpfApp
                         level[Int32.Parse(taskfeld[0])].AddTask(task);
                     }
                 }
-                Info?.Invoke("Список задач загружен из файла");                
+                //Info?.Invoke("Список задач загружен из файла");                
                 return level;
             }
             else

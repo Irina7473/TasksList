@@ -33,7 +33,7 @@ namespace ClassLibrari
             level.Add(2, new ImportanceTable(new List<Objective>(), 2, Color.White));
             level.Add(1, new ImportanceTable(new List<Objective>(), 1, Color.White));
 
-            Info?.Invoke("Новый список задач создан");
+            //Info?.Invoke("Новый список задач создан");
             return level;
         }
 
