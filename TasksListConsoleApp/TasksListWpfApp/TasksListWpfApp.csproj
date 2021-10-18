@@ -10,4 +10,10 @@
     <ProjectReference Include="..\ClassLibrari\ClassLibrari.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TaskList.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
