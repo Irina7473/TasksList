@@ -153,7 +153,7 @@
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Важно" Style="{DynamicResource style_CheckBox}"/>
+                    <CheckBox x:Name="TableImportance3" IsChecked="False" Content="Очень важно" Style="{DynamicResource style_CheckBox}"/>
                     <ComboBox Name="SelectColor3" Style="{DynamicResource style_ComboBox}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="ColorsServices" >
